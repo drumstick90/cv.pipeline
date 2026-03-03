@@ -114,15 +114,22 @@ def complete(
         try:
             kwargs: dict = {
                 "model": model,
-                "max_tokens": 8192,
+                "max_tokens": 16384,
                 "messages": [{"role": "user", "content": prompt}],
             }
             if system:
                 kwargs["system"] = system
+            # Opus 4.6 extended reasoning: adaptive thinking + max effort
+            if "opus-4-6" in model.lower():
+                kwargs["thinking"] = {"type": "adaptive"}
+                kwargs["output_config"] = {"effort": "max"}
 
             response = client.messages.create(**kwargs)
             cost = _cost_from_usage(response.usage, model)
-            return response.content[0].text, cost
+            # Extract text from content (may include thinking blocks before text)
+            text_parts = [b.text for b in response.content if getattr(b, "text", None)]
+            text = "".join(text_parts) if text_parts else ""
+            return text, cost
 
         except RateLimitError:
             if attempt < MAX_RETRIES - 1:

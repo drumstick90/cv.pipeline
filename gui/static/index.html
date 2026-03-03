@@ -5,123 +5,281 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>CV Pipeline</title>
   <style>
+    * { box-sizing: border-box; }
     body {
-      font-family: Verdana, Arial, Helvetica, sans-serif;
-      font-size: 12px;
-      background-color: #f5f5dc;
-      color: #333333;
-      margin: 20px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+      font-size: 15px;
+      line-height: 1.5;
+      background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+      color: #334155;
+      margin: 0;
+      min-height: 100vh;
+      padding: 24px;
     }
-    table {
-      width: 600px;
+    .card {
+      max-width: 640px;
       margin: 0 auto;
-      border: 1px solid #999999;
-      background-color: #ffffff;
-      cellpadding: 10;
-      cellspacing: 0;
-    }
-    td {
-      padding: 10px;
-      vertical-align: top;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+      padding: 32px;
+      border: 1px solid #e2e8f0;
     }
     h1 {
-      font-size: 18px;
-      font-weight: bold;
-      margin: 0 0 10px 0;
-      color: #000066;
+      font-size: 24px;
+      font-weight: 600;
+      margin: 0 0 8px 0;
+      color: #0f172a;
+    }
+    .subtitle {
+      color: #64748b;
+      margin: 0 0 16px 0;
+      font-size: 14px;
+    }
+    .status {
+      color: #64748b;
+      font-size: 13px;
+      margin-bottom: 24px;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #e2e8f0;
+      margin: 24px 0;
+    }
+    .section {
+      margin-bottom: 20px;
+    }
+    .label {
+      font-weight: 600;
+      margin-bottom: 6px;
+      display: block;
+      color: #334155;
     }
     input, textarea {
-      font-family: Verdana, Arial, sans-serif;
-      font-size: 12px;
-      border: 1px solid #999999;
-      padding: 4px;
+      font-family: inherit;
+      font-size: 15px;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      padding: 10px 12px;
+      width: 100%;
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+    input:focus, textarea:focus {
+      outline: none;
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
     }
     textarea {
-      width: 100%;
-      height: 120px;
-      box-sizing: border-box;
+      min-height: 120px;
+      resize: vertical;
     }
-    input[type="text"] {
-      width: 100%;
-      box-sizing: border-box;
+    .btn-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
     }
     input[type="submit"] {
-      background-color: #cccccc;
-      border: 1px solid #999999;
-      padding: 6px 12px;
+      background: #3b82f6;
+      color: #fff;
+      border: none;
+      padding: 12px 24px;
       cursor: pointer;
+      font-weight: 600;
+      border-radius: 8px;
+      width: auto;
+      transition: background 0.15s, transform 0.1s;
     }
-    input[type="submit"]:hover {
-      background-color: #dddddd;
+    input[type="submit"]:hover:not(:disabled) {
+      background: #2563eb;
+    }
+    input[type="submit"]:active:not(:disabled) {
+      transform: scale(0.98);
+    }
+    input[type="submit"]:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+    }
+    .spinner {
+      display: inline-block;
+      width: 18px;
+      height: 18px;
+      border: 2px solid #e2e8f0;
+      border-top-color: #3b82f6;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    .status-msg { color: #64748b; font-size: 14px; }
+    .status-msg.error { color: #dc2626; font-weight: 500; }
+    .status-msg.success { color: #16a34a; font-weight: 500; }
+    .alert {
+      padding: 12px 16px;
+      border-radius: 8px;
+      margin-bottom: 16px;
+    }
+    .alert-error {
+      background: #fef2f2;
+      border: 1px solid #fecaca;
+      color: #dc2626;
+    }
+    .alert-success {
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      color: #16a34a;
     }
     pre {
-      font-family: "Courier New", monospace;
-      font-size: 11px;
-      background-color: #f0f0f0;
-      border: 1px solid #cccccc;
-      padding: 10px;
+      font-family: "SF Mono", "Consolas", "Monaco", monospace;
+      font-size: 13px;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 16px;
       white-space: pre-wrap;
       word-wrap: break-word;
       max-height: 400px;
       overflow-y: auto;
+      margin: 0;
     }
-    .label { font-weight: bold; margin-bottom: 4px; }
-    .section { margin-bottom: 12px; }
-    .status { color: #666666; font-style: italic; }
-    a { color: #0000ff; }
-    hr { border: none; border-top: 1px solid #cccccc; margin: 15px 0; }
+    .output-section {
+      margin-bottom: 20px;
+    }
+    .output-section:last-child { margin-bottom: 0; }
+    .output-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 8px;
+    }
+    .output-header .label { margin-bottom: 0; }
+    .btn-copy {
+      background: #f1f5f9;
+      border: 1px solid #e2e8f0;
+      color: #475569;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 13px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: background 0.15s, color 0.15s;
+    }
+    .btn-copy:hover {
+      background: #e2e8f0;
+      color: #334155;
+    }
+    .btn-copy.copied {
+      background: #dcfce7;
+      color: #16a34a;
+      border-color: #bbf7d0;
+    }
+    #output { margin-top: 8px; }
+    .cost-display {
+      color: #3b82f6;
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+    a { color: #3b82f6; }
   </style>
 </head>
 <body>
-  <table border="1" cellpadding="10" cellspacing="0">
-    <tr>
-      <td>
-        <h1>CV Pipeline</h1>
-        <p>7-step resume improvement via Claude. Paste your resume below.</p>
-        <p class="status">Typical cost: ~$0.15–0.45 per run (Sonnet). Actual cost shown after completion. Model: <span id="model_info">—</span></p>
-        <hr>
-        <form id="form">
-          <div class="section" id="apikey_section" style="display:none;">
-            <div class="label">API Key (required when .env is empty)</div>
-            <input type="password" name="api_key" id="api_key" placeholder="sk-ant-...">
-          </div>
-          <div class="section">
-            <div class="label">Resume (paste text from PDF or .txt)</div>
-            <textarea name="resume" id="resume" required></textarea>
-          </div>
-          <div class="section">
-            <div class="label">Target Role</div>
-            <input type="text" name="target_role" id="target_role" placeholder="e.g. Senior Software Engineer" required>
-          </div>
-          <div class="section">
-            <div class="label">Job Description (optional, for ATS alignment)</div>
-            <textarea name="job_description" id="job_description"></textarea>
-          </div>
-          <div class="section">
-            <input type="submit" value="Run Pipeline">
-            <span id="status" class="status"></span>
-          </div>
-        </form>
-        <hr>
-        <div id="output" style="display:none;">
-          <div id="cost_display" class="label" style="margin-bottom:8px; color:#000066;"></div>
-          <div class="label">Audit</div>
-          <pre id="audit"></pre>
-          <div class="label" style="margin-top:12px;">Final Resume</div>
-          <pre id="final_resume"></pre>
+  <div class="card">
+    <h1>CV Pipeline</h1>
+    <p class="subtitle">7-step resume improvement via Claude. Paste your resume below.</p>
+    <p class="status">Typical cost: ~$0.15–0.45 per run (Sonnet). Actual cost shown after completion. Model: <span id="model_info">—</span></p>
+    <hr>
+    <div id="alert" class="alert" style="display:none;"></div>
+    <form id="form">
+      <div class="section" id="apikey_section" style="display:none;">
+        <label class="label" for="api_key">API Key (required when .env is empty)</label>
+        <input type="password" name="api_key" id="api_key" placeholder="sk-ant-...">
+      </div>
+      <div class="section">
+        <label class="label" for="resume">Resume (paste text from PDF or .txt)</label>
+        <textarea name="resume" id="resume" required></textarea>
+      </div>
+      <div class="section">
+        <label class="label" for="target_role">Target Role</label>
+        <input type="text" name="target_role" id="target_role" placeholder="e.g. Senior Software Engineer" required>
+      </div>
+      <div class="section">
+        <label class="label" for="job_description">Job Description (optional, for ATS alignment)</label>
+        <textarea name="job_description" id="job_description"></textarea>
+      </div>
+      <div class="section">
+        <div class="btn-row">
+          <input type="submit" id="submit_btn" value="Run Pipeline">
+          <span id="status" class="status-msg"></span>
         </div>
-      </td>
-    </tr>
-  </table>
+      </div>
+    </form>
+    <hr>
+    <div id="output" style="display:none;">
+      <div class="output-header" style="margin-bottom:16px;">
+        <span id="cost_display" class="cost-display"></span>
+        <button type="button" class="btn-copy" id="copy_btn">Copy to clipboard</button>
+      </div>
+      <div class="output-section">
+        <div class="label">Audit</div>
+        <pre id="audit"></pre>
+      </div>
+      <div class="output-section">
+        <div class="label">Final Resume</div>
+        <pre id="final_resume"></pre>
+      </div>
+    </div>
+  </div>
   <script>
     const form = document.getElementById('form');
     const status = document.getElementById('status');
+    const submitBtn = document.getElementById('submit_btn');
     const output = document.getElementById('output');
     const auditEl = document.getElementById('audit');
     const finalEl = document.getElementById('final_resume');
     const costEl = document.getElementById('cost_display');
     const apikeySection = document.getElementById('apikey_section');
     const apikeyInput = document.getElementById('api_key');
+    const alertEl = document.getElementById('alert');
+    const copyBtn = document.getElementById('copy_btn');
+
+    function showAlert(msg, type) {
+      alertEl.textContent = msg;
+      alertEl.className = 'alert alert-' + type;
+      alertEl.style.display = 'block';
+    }
+    function hideAlert() {
+      alertEl.style.display = 'none';
+    }
+    function setStatus(msg, type) {
+      status.textContent = msg;
+      status.className = 'status-msg' + (type ? ' ' + type : '');
+    }
+    function setLoading(loading) {
+      submitBtn.disabled = loading;
+      if (loading) {
+        submitBtn.value = '';
+        const spinner = document.createElement('span');
+        spinner.className = 'spinner';
+        submitBtn.appendChild(spinner);
+      } else {
+        submitBtn.innerHTML = '';
+        submitBtn.value = 'Run Pipeline';
+      }
+    }
+
+    copyBtn.addEventListener('click', () => {
+      const text = finalEl.textContent;
+      navigator.clipboard.writeText(text).then(() => {
+        copyBtn.textContent = 'Copied!';
+        copyBtn.classList.add('copied');
+        setTimeout(() => {
+          copyBtn.textContent = 'Copy';
+          copyBtn.classList.remove('copied');
+        }, 2000);
+      });
+    });
 
     fetch('/api/check-key').then(r => r.json()).then(data => {
       if (!data.has_key) apikeySection.style.display = 'block';
@@ -133,7 +291,9 @@
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
-      status.textContent = 'Starting...';
+      hideAlert();
+      setStatus('Starting...');
+      setLoading(true);
       output.style.display = 'none';
 
       const body = {
@@ -153,30 +313,34 @@
 
       if (!res.ok) {
         const err = await res.json().catch(() => ({}));
-        status.textContent = 'Error: ' + (err.error || res.statusText);
+        setLoading(false);
+        setStatus('Error: ' + (err.error || res.statusText), 'error');
+        showAlert(err.error || res.statusText, 'error');
         return;
       }
 
       const { job_id } = await res.json();
-      status.textContent = 'Processing (Step 1/7)...';
+      setStatus('Processing...');
 
       const poll = setInterval(async () => {
         const s = await fetch('/api/status/' + job_id);
         const data = await s.json();
 
         if (data.status === 'running') {
-          status.textContent = 'Processing...';
           return;
         }
 
         clearInterval(poll);
+        setLoading(false);
 
         if (data.status === 'error') {
-          status.textContent = 'Error: ' + data.error;
+          setStatus('Error: ' + data.error, 'error');
+          showAlert(data.error, 'error');
           return;
         }
 
-        status.textContent = 'Done.';
+        setStatus('Done ✓', 'success');
+        showAlert('Resume improved successfully.', 'success');
         costEl.textContent = (data.cost_usd != null && data.cost_usd > 0) ? `Cost this run: $${data.cost_usd.toFixed(4)}` : '';
         auditEl.textContent = data.audit || '';
         finalEl.textContent = data.final_resume || '';
