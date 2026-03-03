@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CV Pipeline</title>
+  <style>
+    body {
+      font-family: Verdana, Arial, Helvetica, sans-serif;
+      font-size: 12px;
+      background-color: #f5f5dc;
+      color: #333333;
+      margin: 20px;
+    }
+    table {
+      width: 600px;
+      margin: 0 auto;
+      border: 1px solid #999999;
+      background-color: #ffffff;
+      cellpadding: 10;
+      cellspacing: 0;
+    }
+    td {
+      padding: 10px;
+      vertical-align: top;
+    }
+    h1 {
+      font-size: 18px;
+      font-weight: bold;
+      margin: 0 0 10px 0;
+      color: #000066;
+    }
+    input, textarea {
+      font-family: Verdana, Arial, sans-serif;
+      font-size: 12px;
+      border: 1px solid #999999;
+      padding: 4px;
+    }
+    textarea {
+      width: 100%;
+      height: 120px;
+      box-sizing: border-box;
+    }
+    input[type="text"] {
+      width: 100%;
+      box-sizing: border-box;
+    }
+    input[type="submit"] {
+      background-color: #cccccc;
+      border: 1px solid #999999;
+      padding: 6px 12px;
+      cursor: pointer;
+    }
+    input[type="submit"]:hover {
+      background-color: #dddddd;
+    }
+    pre {
+      font-family: "Courier New", monospace;
+      font-size: 11px;
+      background-color: #f0f0f0;
+      border: 1px solid #cccccc;
+      padding: 10px;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+      max-height: 400px;
+      overflow-y: auto;
+    }
+    .label { font-weight: bold; margin-bottom: 4px; }
+    .section { margin-bottom: 12px; }
+    .status { color: #666666; font-style: italic; }
+    a { color: #0000ff; }
+    hr { border: none; border-top: 1px solid #cccccc; margin: 15px 0; }
+  </style>
+</head>
+<body>
+  <table border="1" cellpadding="10" cellspacing="0">
+    <tr>
+      <td>
+        <h1>CV Pipeline</h1>
+        <p>7-step resume improvement via Claude. Paste your resume below.</p>
+        <hr>
+        <form id="form">
+          <div class="section" id="apikey_section" style="display:none;">
+            <div class="label">API Key (required when .env is empty)</div>
+            <input type="password" name="api_key" id="api_key" placeholder="sk-ant-...">
+          </div>
+          <div class="section">
+            <div class="label">Resume (paste text from PDF or .txt)</div>
+            <textarea name="resume" id="resume" required></textarea>
+          </div>
+          <div class="section">
+            <div class="label">Target Role</div>
+            <input type="text" name="target_role" id="target_role" placeholder="e.g. Senior Software Engineer" required>
+          </div>
+          <div class="section">
+            <div class="label">Job Description (optional, for ATS alignment)</div>
+            <textarea name="job_description" id="job_description"></textarea>
+          </div>
+          <div class="section">
+            <input type="submit" value="Run Pipeline">
+            <span id="status" class="status"></span>
+          </div>
+        </form>
+        <hr>
+        <div id="output" style="display:none;">
+          <div id="cost_display" class="status" style="margin-bottom:8px;"></div>
+          <div class="label">Audit</div>
+          <pre id="audit"></pre>
+          <div class="label" style="margin-top:12px;">Final Resume</div>
+          <pre id="final_resume"></pre>
+        </div>
+      </td>
+    </tr>
+  </table>
+  <script>
+    const form = document.getElementById('form');
+    const status = document.getElementById('status');
+    const output = document.getElementById('output');
+    const auditEl = document.getElementById('audit');
+    const finalEl = document.getElementById('final_resume');
+    const costEl = document.getElementById('cost_display');
+    const apikeySection = document.getElementById('apikey_section');
+    const apikeyInput = document.getElementById('api_key');
+
+    fetch('/api/check-key').then(r => r.json()).then(data => {
+      if (!data.has_key) apikeySection.style.display = 'block';
+    });
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      status.textContent = 'Starting...';
+      output.style.display = 'none';
+
+      const body = {
+        resume: document.getElementById('resume').value,
+        target_role: document.getElementById('target_role').value,
+        job_description: document.getElementById('job_description').value || null
+      };
+      if (apikeySection.style.display !== 'none' && apikeyInput.value) {
+        body.api_key = apikeyInput.value;
+      }
+
+      const res = await fetch('/api/run', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body)
+      });
+
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        status.textContent = 'Error: ' + (err.error || res.statusText);
+        return;
+      }
+
+      const { job_id } = await res.json();
+      status.textContent = 'Processing (Step 1/7)...';
+
+      const poll = setInterval(async () => {
+        const s = await fetch('/api/status/' + job_id);
+        const data = await s.json();
+
+        if (data.status === 'running') {
+          status.textContent = 'Processing...';
+          return;
+        }
+
+        clearInterval(poll);
+
+        if (data.status === 'error') {
+          status.textContent = 'Error: ' + data.error;
+          return;
+        }
+
+        status.textContent = 'Done.';
+        costEl.textContent = (data.cost_usd != null && data.cost_usd > 0) ? `Estimated cost: $${data.cost_usd.toFixed(4)}` : '';
+        auditEl.textContent = data.audit || '';
+        finalEl.textContent = data.final_resume || '';
+        output.style.display = 'block';
+      }, 3000);
+    });
+  </script>
+</body>
+</html>

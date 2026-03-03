@@ -1,0 +1,24 @@
+JANE DOE
+jane.doe@email.com | (555) 123-4567 | linkedin.com/in/janedoe
+
+PROFESSIONAL SUMMARY
+Software engineer with experience in web development. I work on various projects and help teams deliver software.
+
+EXPERIENCE
+
+Software Engineer | Acme Corp | 2020 - Present
+- Developed web applications
+- Participated in code reviews
+- Attended standup meetings
+- Wrote documentation
+
+Junior Developer | StartupXYZ | 2018 - 2020
+- Helped build features
+- Fixed bugs
+- Worked with the team
+
+EDUCATION
+BS Computer Science | State University | 2018
+
+SKILLS
+Python, JavaScript, SQL, Git
