@@ -79,6 +79,53 @@
       gap: 12px;
       flex-wrap: wrap;
     }
+    .progress-steps {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 12px;
+      font-size: 12px;
+      color: #64748b;
+    }
+    .progress-steps span {
+      padding: 2px 8px;
+      border-radius: 4px;
+      background: #f1f5f9;
+    }
+    .progress-steps span.done {
+      background: #dcfce7;
+      color: #16a34a;
+    }
+    .progress-steps span.active {
+      background: #dbeafe;
+      color: #2563eb;
+      font-weight: 500;
+    }
+    .cli-log {
+      font-family: "SF Mono", "Consolas", "Monaco", monospace;
+      font-size: 12px;
+      background: #0f172a;
+      color: #e2e8f0;
+      border-radius: 6px;
+      padding: 10px 12px;
+      margin-top: 12px;
+      min-height: 2.6em;
+      line-height: 1.4;
+    }
+    .cli-log .line { white-space: pre; }
+    .cli-log .line:empty::before { content: '\00a0'; }
+    .cli-cursor {
+      display: inline-block;
+      width: 8px;
+      height: 1em;
+      background: #3b82f6;
+      margin-left: 2px;
+      vertical-align: text-bottom;
+      animation: blink 1s step-end infinite;
+    }
+    @keyframes blink {
+      50% { opacity: 0; }
+    }
     input[type="submit"] {
       background: #3b82f6;
       color: #fff;
@@ -175,6 +222,33 @@
       color: #16a34a;
       border-color: #bbf7d0;
     }
+    .pdf-upload-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 8px;
+    }
+    .btn-pdf {
+      background: #f1f5f9;
+      border: 1px solid #e2e8f0;
+      color: #475569;
+      padding: 8px 14px;
+      border-radius: 6px;
+      font-size: 14px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: background 0.15s, color 0.15s;
+    }
+    .btn-pdf:hover {
+      background: #e2e8f0;
+      color: #334155;
+    }
+    .pdf-status {
+      font-size: 13px;
+      color: #64748b;
+    }
+    .pdf-status.error { color: #dc2626; }
+    .pdf-status.success { color: #16a34a; }
     #output { margin-top: 8px; }
     .cost-display {
       color: #3b82f6;
@@ -198,6 +272,11 @@
       </div>
       <div class="section">
         <label class="label" for="resume">Resume (paste text from PDF or .txt)</label>
+        <div class="pdf-upload-row">
+          <input type="file" id="pdf_input" accept=".pdf" style="display:none">
+          <button type="button" class="btn-pdf" id="pdf_btn">Upload PDF (extract text)</button>
+          <span id="pdf_status" class="pdf-status"></span>
+        </div>
         <textarea name="resume" id="resume" required></textarea>
       </div>
       <div class="section">
@@ -212,6 +291,11 @@
         <div class="btn-row">
           <input type="submit" id="submit_btn" value="Run Pipeline">
           <span id="status" class="status-msg"></span>
+        </div>
+        <div id="progress_steps" class="progress-steps" style="display:none;"></div>
+        <div id="cli_log" class="cli-log" style="display:none;">
+          <div class="line" id="cli_line1"></div>
+          <div class="line" id="cli_line2"></div>
         </div>
       </div>
     </form>
@@ -243,6 +327,38 @@
     const apikeyInput = document.getElementById('api_key');
     const alertEl = document.getElementById('alert');
     const copyBtn = document.getElementById('copy_btn');
+    const progressStepsEl = document.getElementById('progress_steps');
+    const cliLogEl = document.getElementById('cli_log');
+    const cliLine1 = document.getElementById('cli_line1');
+    const cliLine2 = document.getElementById('cli_line2');
+
+    const STEP_NAMES = [
+      'Audit', 'Positioning', 'Achievements', 'ATS', 'Tone', 'Scan', 'Polish'
+    ];
+
+    function renderCliLog(lines, blinking) {
+      const arr = Array.isArray(lines) ? lines : [];
+      cliLogEl.style.display = 'block';
+      cliLine1.textContent = arr[0] || (blinking ? 'Starting pipeline...' : '');
+      cliLine2.innerHTML = '';
+      if (arr[1]) cliLine2.appendChild(document.createTextNode(arr[1]));
+      if (blinking) {
+        const cursor = document.createElement('span');
+        cursor.className = 'cli-cursor';
+        cliLine2.appendChild(cursor);
+      }
+    }
+
+    function renderProgress(completed, current) {
+      progressStepsEl.style.display = 'flex';
+      progressStepsEl.innerHTML = STEP_NAMES.map((name, i) => {
+        const n = i + 1;
+        let cls = '';
+        if (completed.includes(n)) cls = 'done';
+        else if (n === current) cls = 'active';
+        return `<span class="${cls}">${n}. ${name}</span>`;
+      }).join('');
+    }
 
     function showAlert(msg, type) {
       alertEl.textContent = msg;
@@ -281,6 +397,38 @@
       });
     });
 
+    const pdfInput = document.getElementById('pdf_input');
+    const pdfBtn = document.getElementById('pdf_btn');
+    const pdfStatus = document.getElementById('pdf_status');
+    const resumeEl = document.getElementById('resume');
+
+    pdfBtn.addEventListener('click', () => pdfInput.click());
+    pdfInput.addEventListener('change', async (e) => {
+      const file = e.target.files?.[0];
+      if (!file) return;
+      pdfStatus.textContent = 'Extracting...';
+      pdfStatus.className = 'pdf-status';
+      pdfInput.value = '';
+      const fd = new FormData();
+      fd.append('file', file);
+      try {
+        const res = await fetch('/api/extract-pdf', { method: 'POST', body: fd });
+        const data = await res.json();
+        if (!res.ok) {
+          pdfStatus.textContent = data.error || 'Extraction failed';
+          pdfStatus.className = 'pdf-status error';
+          return;
+        }
+        resumeEl.value = data.text || '';
+        pdfStatus.textContent = 'Text extracted (CMD+A style, no AI)';
+        pdfStatus.className = 'pdf-status success';
+        setTimeout(() => { pdfStatus.textContent = ''; }, 3000);
+      } catch (err) {
+        pdfStatus.textContent = 'Network error';
+        pdfStatus.className = 'pdf-status error';
+      }
+    });
+
     fetch('/api/check-key').then(r => r.json()).then(data => {
       if (!data.has_key) apikeySection.style.display = 'block';
     });
@@ -295,6 +443,8 @@
       setStatus('Starting...');
       setLoading(true);
       output.style.display = 'none';
+      progressStepsEl.style.display = 'none';
+      cliLogEl.style.display = 'none';
 
       const body = {
         resume: document.getElementById('resume').value,
@@ -320,32 +470,42 @@
       }
 
       const { job_id } = await res.json();
-      setStatus('Processing...');
+      setStatus('Step 1/7: Brutal Recruiter Audit...');
 
       const poll = setInterval(async () => {
         const s = await fetch('/api/status/' + job_id);
         const data = await s.json();
 
         if (data.status === 'running') {
+          const step = data.current_step || 0;
+          const name = data.step_name || '';
+          const completed = data.completed_steps || [];
+          const logLines = data.log_lines || [];
+          setStatus(step ? `Step ${step}/7: ${name}...` : 'Starting...');
+          renderProgress(completed, step);
+          renderCliLog(logLines, true);
           return;
         }
 
         clearInterval(poll);
         setLoading(false);
+        progressStepsEl.style.display = 'none';
 
         if (data.status === 'error') {
           setStatus('Error: ' + data.error, 'error');
           showAlert(data.error, 'error');
+          cliLogEl.style.display = 'none';
           return;
         }
 
         setStatus('Done ✓', 'success');
         showAlert('Resume improved successfully.', 'success');
+        renderCliLog(data.log_lines || [], false);
         costEl.textContent = (data.cost_usd != null && data.cost_usd > 0) ? `Cost this run: $${data.cost_usd.toFixed(4)}` : '';
         auditEl.textContent = data.audit || '';
         finalEl.textContent = data.final_resume || '';
         output.style.display = 'block';
-      }, 3000);
+      }, 1500);
     });
   </script>
 </body>
