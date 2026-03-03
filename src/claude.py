@@ -46,10 +46,10 @@ def _get_client() -> Anthropic:
     return Anthropic(api_key=api_key)
 
 
-def get_available_model(prefer: str = "haiku") -> str:
+def get_available_model(prefer: str = "sonnet") -> str:
     """
     Query Anthropic API for available models and return the best match.
-    prefer: "haiku" (fast), "sonnet", or "opus" (strongest).
+    prefer: "haiku" (fast), "sonnet" (default), or "opus" (strongest).
     Caches result for 1 hour.
     """
     global _MODEL_CACHE
@@ -108,7 +108,7 @@ def complete(
         APIStatusError: On API errors after retries.
     """
     client = _get_client()
-    model = model or get_available_model(prefer="haiku")
+    model = model or get_available_model(prefer="sonnet")
 
     for attempt in range(MAX_RETRIES):
         try:

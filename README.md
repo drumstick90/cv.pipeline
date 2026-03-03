@@ -68,4 +68,4 @@ Open http://127.0.0.1:5000 in your browser. Paste resume text, enter target role
 
 ## Model
 
-The app queries the Anthropic API for available models and picks the best match. Default preference is Haiku (fast). For production, set `ANTHROPIC_MODEL` in `.env` to a specific model ID (e.g. `claude-sonnet-4-6`, `claude-opus-4-6`). The model list is cached for 1 hour.
+The app queries the Anthropic API for available models and picks the best match. Default preference is Sonnet. Set `ANTHROPIC_MODEL` in `.env` to override (e.g. `claude-haiku-4-5`, `claude-opus-4-6`). The model list is cached for 1 hour.

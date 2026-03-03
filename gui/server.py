@@ -33,6 +33,17 @@ def api_check_key():
     return jsonify({"has_key": has_key})
 
 
+@app.route("/api/model")
+def api_model():
+    """Return the model that will be used for pipeline runs."""
+    try:
+        from src.claude import get_available_model
+        model = get_available_model(prefer="sonnet")
+        return jsonify({"model": model})
+    except Exception as e:
+        return jsonify({"model": None, "error": str(e)}), 500
+
+
 def run_pipeline(
     job_id: str,
     resume: str,

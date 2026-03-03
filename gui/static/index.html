@@ -78,6 +78,7 @@
       <td>
         <h1>CV Pipeline</h1>
         <p>7-step resume improvement via Claude. Paste your resume below.</p>
+        <p class="status">Typical cost: ~$0.15–0.45 per run (Sonnet). Actual cost shown after completion. Model: <span id="model_info">—</span></p>
         <hr>
         <form id="form">
           <div class="section" id="apikey_section" style="display:none;">
@@ -103,7 +104,7 @@
         </form>
         <hr>
         <div id="output" style="display:none;">
-          <div id="cost_display" class="status" style="margin-bottom:8px;"></div>
+          <div id="cost_display" class="label" style="margin-bottom:8px; color:#000066;"></div>
           <div class="label">Audit</div>
           <pre id="audit"></pre>
           <div class="label" style="margin-top:12px;">Final Resume</div>
@@ -125,6 +126,10 @@
     fetch('/api/check-key').then(r => r.json()).then(data => {
       if (!data.has_key) apikeySection.style.display = 'block';
     });
+    fetch('/api/model').then(r => r.json()).then(data => {
+      const el = document.getElementById('model_info');
+      if (el && data.model) el.textContent = data.model;
+    }).catch(() => {});
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
@@ -172,7 +177,7 @@
         }
 
         status.textContent = 'Done.';
-        costEl.textContent = (data.cost_usd != null && data.cost_usd > 0) ? `Estimated cost: $${data.cost_usd.toFixed(4)}` : '';
+        costEl.textContent = (data.cost_usd != null && data.cost_usd > 0) ? `Cost this run: $${data.cost_usd.toFixed(4)}` : '';
         auditEl.textContent = data.audit || '';
         finalEl.textContent = data.final_resume || '';
         output.style.display = 'block';
