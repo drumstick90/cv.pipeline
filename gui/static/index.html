@@ -7,11 +7,11 @@
   <style>
     * { box-sizing: border-box; }
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
-      font-size: 15px;
+      font-family: Verdana, Geneva, sans-serif;
+      font-size: 12px;
       line-height: 1.5;
-      background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
-      color: #334155;
+      background: #e8e8e8;
+      color: #333;
       margin: 0;
       min-height: 100vh;
       padding: 24px;
@@ -20,54 +20,58 @@
       max-width: 640px;
       margin: 0 auto;
       background: #fff;
-      border-radius: 12px;
-      box-shadow: 0 4px 24px rgba(0,0,0,0.08);
-      padding: 32px;
-      border: 1px solid #e2e8f0;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      padding: 24px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      text-align: center;
     }
     h1 {
-      font-size: 24px;
-      font-weight: 600;
+      font-size: 18px;
+      font-weight: bold;
       margin: 0 0 8px 0;
-      color: #0f172a;
+      color: #0066cc;
+      font-family: Verdana, Geneva, sans-serif;
     }
     .subtitle {
-      color: #64748b;
-      margin: 0 0 16px 0;
-      font-size: 14px;
+      color: #666;
+      margin: 0 0 8px 0;
+      font-size: 12px;
     }
     .status {
-      color: #64748b;
-      font-size: 13px;
-      margin-bottom: 24px;
+      color: #666;
+      font-size: 11px;
+      margin-bottom: 20px;
     }
     hr {
       border: none;
-      border-top: 1px solid #e2e8f0;
-      margin: 24px 0;
+      border-top: 1px solid #ddd;
+      margin: 20px 0;
     }
     .section {
       margin-bottom: 20px;
+      text-align: center;
     }
     .label {
-      font-weight: 600;
+      font-weight: bold;
       margin-bottom: 6px;
       display: block;
-      color: #334155;
+      color: #000;
     }
     input, textarea {
-      font-family: inherit;
-      font-size: 15px;
-      border: 1px solid #cbd5e1;
-      border-radius: 8px;
-      padding: 10px 12px;
+      font-family: Verdana, Geneva, sans-serif;
+      font-size: 12px;
+      border: 1px solid #999;
+      border-radius: 3px;
+      padding: 8px 10px;
       width: 100%;
-      transition: border-color 0.15s, box-shadow 0.15s;
+      background: #fff;
+      color: #333;
     }
     input:focus, textarea:focus {
       outline: none;
-      border-color: #3b82f6;
-      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+      border-color: #0066cc;
+      box-shadow: 0 0 0 1px #0066cc;
     }
     textarea {
       min-height: 120px;
@@ -76,37 +80,41 @@
     .btn-row {
       display: flex;
       align-items: center;
+      justify-content: center;
       gap: 12px;
       flex-wrap: wrap;
     }
     .progress-steps {
       display: flex;
       flex-wrap: wrap;
+      justify-content: center;
       gap: 6px;
       margin-top: 12px;
       font-size: 12px;
-      color: #64748b;
+      color: #666;
     }
     .progress-steps span {
-      padding: 2px 8px;
-      border-radius: 4px;
-      background: #f1f5f9;
+      padding: 3px 8px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+      background: #f5f5f5;
     }
     .progress-steps span.done {
-      background: #dcfce7;
-      color: #16a34a;
+      background: #e8f5e9;
+      color: #2e7d32;
     }
     .progress-steps span.active {
-      background: #dbeafe;
-      color: #2563eb;
-      font-weight: 500;
+      background: #e3f2fd;
+      color: #0066cc;
+      border-color: #0066cc;
     }
     .cli-log {
-      font-family: "SF Mono", "Consolas", "Monaco", monospace;
-      font-size: 12px;
-      background: #0f172a;
-      color: #e2e8f0;
-      border-radius: 6px;
+      font-family: "Courier New", Courier, monospace;
+      font-size: 11px;
+      background: #1e1e1e;
+      color: #00ff00;
+      border: 1px solid #555;
+      border-radius: 3px;
       padding: 10px 12px;
       margin-top: 12px;
       min-height: 2.6em;
@@ -118,7 +126,7 @@
       display: inline-block;
       width: 8px;
       height: 1em;
-      background: #3b82f6;
+      background: #00ff00;
       margin-left: 2px;
       vertical-align: text-bottom;
       animation: blink 1s step-end infinite;
@@ -127,62 +135,83 @@
       50% { opacity: 0; }
     }
     input[type="submit"] {
-      background: #3b82f6;
+      background: #0066cc;
       color: #fff;
-      border: none;
-      padding: 12px 24px;
+      border: 1px solid #0055aa;
+      border-radius: 4px;
+      padding: 10px 20px;
       cursor: pointer;
-      font-weight: 600;
-      border-radius: 8px;
+      font-weight: bold;
+      font-family: Verdana, Geneva, sans-serif;
+      font-size: 12px;
       width: auto;
-      transition: background 0.15s, transform 0.1s;
     }
     input[type="submit"]:hover:not(:disabled) {
-      background: #2563eb;
-    }
-    input[type="submit"]:active:not(:disabled) {
-      transform: scale(0.98);
+      background: #0055aa;
     }
     input[type="submit"]:disabled {
       opacity: 0.7;
       cursor: not-allowed;
     }
+    .btn-abort {
+      background: #f5f5f5;
+      border: 1px solid #999;
+      border-radius: 4px;
+      color: #c62828;
+      padding: 10px 20px;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 12px;
+      font-family: Verdana, Geneva, sans-serif;
+    }
+    .btn-abort:hover {
+      background: #eee;
+    }
     .spinner {
       display: inline-block;
-      width: 18px;
-      height: 18px;
-      border: 2px solid #e2e8f0;
-      border-top-color: #3b82f6;
+      width: 14px;
+      height: 14px;
+      border: 2px solid #e0e0e0;
+      border-top-color: #0066cc;
       border-radius: 50%;
       animation: spin 0.8s linear infinite;
     }
     @keyframes spin {
       to { transform: rotate(360deg); }
     }
-    .status-msg { color: #64748b; font-size: 14px; }
-    .status-msg.error { color: #dc2626; font-weight: 500; }
-    .status-msg.success { color: #16a34a; font-weight: 500; }
+    .status-msg { color: #666; font-size: 14px; }
+    .chrono {
+      font-family: Verdana, Geneva, sans-serif;
+      font-size: 12px;
+      font-weight: bold;
+      color: #0066cc;
+      margin-left: 8px;
+    }
+    .status-msg.error { color: #c62828; }
+    .status-msg.success { color: #2e7d32; }
     .alert {
       padding: 12px 16px;
-      border-radius: 8px;
+      border: 1px solid #ccc;
       margin-bottom: 16px;
+      font-size: 14px;
     }
     .alert-error {
-      background: #fef2f2;
-      border: 1px solid #fecaca;
-      color: #dc2626;
+      background: #ffebee;
+      border-color: #ef9a9a;
+      color: #c62828;
     }
     .alert-success {
-      background: #f0fdf4;
-      border: 1px solid #bbf7d0;
-      color: #16a34a;
+      background: #e8f5e9;
+      border-color: #a5d6a7;
+      color: #2e7d32;
     }
     pre {
-      font-family: "SF Mono", "Consolas", "Monaco", monospace;
-      font-size: 13px;
-      background: #f8fafc;
-      border: 1px solid #e2e8f0;
-      border-radius: 8px;
+      font-family: "Courier New", Courier, monospace;
+      font-size: 11px;
+      background: #f8f8f8;
+      color: #333;
+      border: 1px solid #ddd;
+      border-radius: 3px;
       padding: 16px;
       white-space: pre-wrap;
       word-wrap: break-word;
@@ -197,72 +226,73 @@
     .output-header {
       display: flex;
       align-items: center;
-      justify-content: space-between;
+      justify-content: center;
       gap: 12px;
       margin-bottom: 8px;
     }
     .output-header .label { margin-bottom: 0; }
     .btn-copy {
-      background: #f1f5f9;
-      border: 1px solid #e2e8f0;
-      color: #475569;
-      padding: 6px 12px;
-      border-radius: 6px;
-      font-size: 13px;
+      background: #f5f5f5;
+      border: 1px solid #999;
+      border-radius: 4px;
+      color: #333;
+      padding: 8px 14px;
+      font-size: 12px;
       cursor: pointer;
-      font-weight: 500;
-      transition: background 0.15s, color 0.15s;
+      font-weight: bold;
+      font-family: Verdana, Geneva, sans-serif;
     }
     .btn-copy:hover {
-      background: #e2e8f0;
-      color: #334155;
+      background: #eee;
     }
     .btn-copy.copied {
-      background: #dcfce7;
-      color: #16a34a;
-      border-color: #bbf7d0;
+      background: #e8f5e9;
+      border-color: #2e7d32;
+      color: #2e7d32;
     }
     .pdf-upload-row {
       display: flex;
       align-items: center;
+      justify-content: center;
       gap: 12px;
       margin-bottom: 8px;
     }
     .btn-pdf {
-      background: #f1f5f9;
-      border: 1px solid #e2e8f0;
-      color: #475569;
+      background: #f5f5f5;
+      border: 1px solid #999;
+      border-radius: 4px;
+      color: #333;
       padding: 8px 14px;
-      border-radius: 6px;
-      font-size: 14px;
+      font-size: 12px;
       cursor: pointer;
-      font-weight: 500;
-      transition: background 0.15s, color 0.15s;
+      font-weight: bold;
+      font-family: Verdana, Geneva, sans-serif;
     }
     .btn-pdf:hover {
-      background: #e2e8f0;
-      color: #334155;
+      background: #eee;
     }
     .pdf-status {
       font-size: 13px;
-      color: #64748b;
+      color: #666;
     }
-    .pdf-status.error { color: #dc2626; }
-    .pdf-status.success { color: #16a34a; }
+    .pdf-status.error { color: #c62828; }
+    .pdf-status.success { color: #2e7d32; }
     #output { margin-top: 8px; }
     .cost-display {
-      color: #3b82f6;
-      font-weight: 600;
+      color: #333;
+      font-weight: bold;
+      font-size: 12px;
       margin-bottom: 16px;
     }
-    a { color: #3b82f6; }
+    a { color: #0066cc; text-decoration: underline; }
+    a:visited { color: #551a8b; }
   </style>
 </head>
 <body>
   <div class="card">
     <h1>CV Pipeline</h1>
     <p class="subtitle">7-step resume improvement via Claude. Paste your resume below.</p>
-    <p class="status">Typical cost: ~$0.15–0.45 per run (Sonnet). Actual cost shown after completion. Model: <span id="model_info">—</span></p>
+    <p class="status">Typical cost: ~$2 per run (Sonnet). Actual cost shown after completion. Model: <span id="model_info">—</span></p>
     <hr>
     <div id="alert" class="alert" style="display:none;"></div>
     <form id="form">
@@ -290,7 +320,9 @@
       <div class="section">
         <div class="btn-row">
           <input type="submit" id="submit_btn" value="Run Pipeline">
+          <button type="button" class="btn-abort" id="abort_btn" style="display:none;">Stop</button>
           <span id="status" class="status-msg"></span>
+          <span id="chrono" class="chrono" style="display:none;"></span>
         </div>
         <div id="progress_steps" class="progress-steps" style="display:none;"></div>
         <div id="cli_log" class="cli-log" style="display:none;">
@@ -303,7 +335,7 @@
     <div id="output" style="display:none;">
       <div class="output-header" style="margin-bottom:16px;">
         <span id="cost_display" class="cost-display"></span>
-        <button type="button" class="btn-copy" id="copy_btn">Copy to clipboard</button>
+        <button type="button" class="btn-copy" id="copy_btn">Copy</button>
       </div>
       <div class="output-section">
         <div class="label">Audit</div>
@@ -331,6 +363,9 @@
     const cliLogEl = document.getElementById('cli_log');
     const cliLine1 = document.getElementById('cli_line1');
     const cliLine2 = document.getElementById('cli_line2');
+    const chronoEl = document.getElementById('chrono');
+    const abortBtn = document.getElementById('abort_btn');
+    let currentJobId = null;
 
     const STEP_NAMES = [
       'Audit', 'Positioning', 'Achievements', 'ATS', 'Tone', 'Scan', 'Polish'
@@ -347,6 +382,12 @@
         cursor.className = 'cli-cursor';
         cliLine2.appendChild(cursor);
       }
+    }
+
+    function fmtTime(sec) {
+      const m = Math.floor(sec / 60);
+      const s = Math.floor(sec % 60);
+      return m + ':' + (s < 10 ? '0' : '') + s;
     }
 
     function renderProgress(completed, current) {
@@ -402,6 +443,13 @@
     const pdfStatus = document.getElementById('pdf_status');
     const resumeEl = document.getElementById('resume');
 
+    abortBtn.addEventListener('click', async () => {
+      if (!currentJobId) return;
+      try {
+        await fetch('/api/abort/' + currentJobId, { method: 'POST' });
+      } catch (_) {}
+    });
+
     pdfBtn.addEventListener('click', () => pdfInput.click());
     pdfInput.addEventListener('change', async (e) => {
       const file = e.target.files?.[0];
@@ -445,6 +493,7 @@
       output.style.display = 'none';
       progressStepsEl.style.display = 'none';
       cliLogEl.style.display = 'none';
+      chronoEl.style.display = 'none';
 
       const body = {
         resume: document.getElementById('resume').value,
@@ -470,7 +519,15 @@
       }
 
       const { job_id } = await res.json();
+      currentJobId = job_id;
+      abortBtn.style.display = 'inline-block';
       setStatus('Step 1/7: Brutal Recruiter Audit...');
+      chronoEl.style.display = 'inline';
+      const startMs = Date.now();
+      const chronoInterval = setInterval(() => {
+        chronoEl.textContent = fmtTime((Date.now() - startMs) / 1000);
+      }, 1000);
+      chronoEl.textContent = '0:00';
 
       const poll = setInterval(async () => {
         const s = await fetch('/api/status/' + job_id);
@@ -481,23 +538,37 @@
           const name = data.step_name || '';
           const completed = data.completed_steps || [];
           const logLines = data.log_lines || [];
-          setStatus(step ? `Step ${step}/7: ${name}...` : 'Starting...');
+          setStatus(data.aborting ? 'Stopping...' : (step ? `Step ${step}/7: ${name}...` : 'Starting...'));
           renderProgress(completed, step);
           renderCliLog(logLines, true);
           return;
         }
 
         clearInterval(poll);
+        clearInterval(chronoInterval);
         setLoading(false);
+        abortBtn.style.display = 'none';
+        currentJobId = null;
         progressStepsEl.style.display = 'none';
+
+        if (data.status === 'aborted') {
+          setStatus('Stopped', 'error');
+          renderCliLog(data.log_lines || [], false);
+          cliLogEl.style.display = 'block';
+          chronoEl.style.display = 'none';
+          return;
+        }
 
         if (data.status === 'error') {
           setStatus('Error: ' + data.error, 'error');
           showAlert(data.error, 'error');
           cliLogEl.style.display = 'none';
+          chronoEl.style.display = 'none';
           return;
         }
 
+        const elapsedSec = (Date.now() - startMs) / 1000;
+        chronoEl.textContent = 'Done in ' + fmtTime(elapsedSec);
         setStatus('Done ✓', 'success');
         showAlert('Resume improved successfully.', 'success');
         renderCliLog(data.log_lines || [], false);

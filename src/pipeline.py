@@ -7,6 +7,11 @@ from typing import Callable, Optional
 from .claude import complete
 from . import steps
 
+
+class PipelineAborted(Exception):
+    """Raised when the pipeline is aborted by the user."""
+
+
 # Step metadata for progress reporting
 STEP_NAMES = {
     1: "Brutal Recruiter Audit",
@@ -24,6 +29,7 @@ def run(
     target_role: str,
     job_description: Optional[str] = None,
     on_progress: Optional[Callable[[int, str, str, float, dict], None]] = None,
+    abort_check: Optional[Callable[[], bool]] = None,
 ) -> dict:
     """
     Run the 7-step resume improvement pipeline.
@@ -39,6 +45,7 @@ def run(
 
     on_progress: Optional callback(step_num, step_name, phase, elapsed_s, usage).
         phase is "start" or "end". usage has input_tokens, output_tokens (0 at start).
+    abort_check: Optional callable returning True to abort. Checked before each step.
     """
     result: dict = {
         "audit": "",
@@ -52,6 +59,8 @@ def run(
     pipeline_start = time.perf_counter()
 
     def _step(step_num: int, step_name: str, do_run: Callable):
+        if abort_check and abort_check():
+            raise PipelineAborted()
         nonlocal total_cost, total_input_tokens, total_output_tokens
         start = time.perf_counter()
         if on_progress:
@@ -96,6 +105,8 @@ def run(
     current_resume = resume_v3
 
     # Step 4: ATS Keyword Alignment (skip if no job description)
+    if abort_check and abort_check():
+        raise PipelineAborted()
     if job_description:
         resume_v4 = _step(
             4,

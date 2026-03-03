@@ -556,3 +556,151 @@
 {"sessionId": "ede47f", "message": "response", "data": {"status": 200, "path": "/api/status/ded5d112-c2fa-46ac-aa86-cdf639fb08d9", "hypothesisId": "H2"}, "timestamp": 1772576667.9075258}
 {"sessionId": "ede47f", "message": "request", "data": {"method": "GET", "path": "/api/status/ded5d112-c2fa-46ac-aa86-cdf639fb08d9", "url": "http://127.0.0.1:5000/api/status/ded5d112-c2fa-46ac-aa86-cdf639fb08d9", "hypothesisId": "H1"}, "timestamp": 1772576669.874517}
 {"sessionId": "ede47f", "message": "response", "data": {"status": 200, "path": "/api/status/ded5d112-c2fa-46ac-aa86-cdf639fb08d9", "hypothesisId": "H2"}, "timestamp": 1772576669.875731}
+{"sessionId": "ede47f", "message": "request", "data": {"method": "GET", "path": "/", "url": "http://127.0.0.1:5000/", "hypothesisId": "H1"}, "timestamp": 1772576871.801248}
+{"sessionId": "ede47f", "message": "response", "data": {"status": 200, "path": "/", "hypothesisId": "H2"}, "timestamp": 1772576871.802836}
+{"sessionId": "ede47f", "message": "request", "data": {"method": "GET", "path": "/api/check-key", "url": "http://127.0.0.1:5000/api/check-key", "hypothesisId": "H1"}, "timestamp": 1772576872.0082319}
+{"sessionId": "ede47f", "message": "request", "data": {"method": "GET", "path": "/api/model", "url": "http://127.0.0.1:5000/api/model", "hypothesisId": "H1"}, "timestamp": 1772576872.008322}
+{"sessionId": "ede47f", "message": "response", "data": {"status": 200, "path": "/api/check-key", "hypothesisId": "H2"}, "timestamp": 1772576872.0095701}
+{"sessionId": "ede47f", "message": "response", "data": {"status": 200, "path": "/api/model", "hypothesisId": "H2"}, "timestamp": 1772576872.009791}
+{"sessionId": "ede47f", "message": "request", "data": {"method": "POST", "path": "/api/run", "url": "http://127.0.0.1:5000/api/run", "hypothesisId": "H1"}, "timestamp": 1772576915.154283}
+{"sessionId": "ede47f", "message": "response", "data": {"status": 200, "path": "/api/run", "hypothesisId": "H2"}, "timestamp": 1772576915.155872}
+{"sessionId": "ede47f", "message": "request", "data": {"method": "GET", "path": "/api/status/3d660f1e-5ac5-4268-817e-04777f5287aa", "url": "http://127.0.0.1:5000/api/status/3d660f1e-5ac5-4268-817e-04777f5287aa", "hypothesisId": "H1"}, "timestamp": 1772576916.664049}
+{"sessionId": "ede47f", "message": "response", "data": {"status": 200, "path": "/api/status/3d660f1e-5ac5-4268-817e-04777f5287aa", "hypothesisId": "H2"}, "timestamp": 1772576916.6645608}
+{"sessionId": "ede47f", "message": "request", "data": {"method": "GET", "path": "/api/status/3d660f1e-5ac5-4268-817e-04777f5287aa", "url": "http://127.0.0.1:5000/api/status/3d660f1e-5ac5-4268-817e-04777f5287aa", "hypothesisId": "H1"}, "timestamp": 1772576918.165741}
+{"sessionId": "ede47f", "message": "response", "data": {"status": 200, "path": "/api/status/3d660f1e-5ac5-4268-817e-04777f5287aa", "hypothesisId": "H2"}, "timestamp": 1772576918.166207}
+{"sessionId": "ede47f", "message": "request", "data": {"method": "GET", "path": "/api/status/3d660f1e-5ac5-4268-817e-04777f5287aa", "url": "http://127.0.0.1:5000/api/status/3d660f1e-5ac5-4268-817e-04777f5287aa", "hypothesisId": "H1"}, "timestamp": 1772576919.663745}
+{"sessionId": "ede47f", "message": "response", "data": {"status": 200, "path": "/api/status/3d660f1e-5ac5-4268-817e-04777f5287aa", "hypothesisId": "H2"}, "timestamp": 1772576919.664119}
+{"sessionId": "ede47f", "message": "request", "data": {"method": "GET", "path": "/api/status/3d660f1e-5ac5-4268-817e-04777f5287aa", "url": "http://127.0.0.1:5000/api/status/3d660f1e-5ac5-4268-817e-04777f5287aa", "hypothesisId": "H1"}, "timestamp": 1772576921.16309}
+{"sessionId": "ede47f", "message": "response", "data": {"status": 200, "path": "/api/status/3d660f1e-5ac5-4268-817e-04777f5287aa", "hypothesisId": "H2"}, "timestamp": 1772576921.16326}
+{"sessionId": "ede47f", "message": "request", "data": {"method": "GET", "path": "/api/status/3d660f1e-5ac5-4268-817e-04777f5287aa", "url": "http://127.0.0.1:5000/api/status/3d660f1e-5ac5-4268-817e-04777f5287aa", "hypothesisId": "H1"}, "timestamp": 1772576922.665144}
+{"sessionId": "ede47f", "message": "response", "data": {"status": 200, "path": "/api/status/3d660f1e-5ac5-4268-817e-04777f5287aa", "hypothesisId": "H2"}, "timestamp": 1772576922.665463}
+{"sessionId": "ede47f", "message": "request", "data": {"method": "GET", "path": "/api/status/3d660f1e-5ac5-4268-817e-04777f5287aa", "url": "http://127.0.0.1:5000/api/status/3d660f1e-5ac5-4268-817e-04777f5287aa", "hypothesisId": "H1"}, "timestamp": 1772576924.1666949}
+{"sessionId": "ede47f", "message": "response", "data": {"status": 200, "path": "/api/status/3d660f1e-5ac5-4268-817e-04777f5287aa", "hypothesisId": "H2"}, "timestamp": 1772576924.167936}
+{"sessionId": "ede47f", "message": "request", "data": {"method": "GET", "path": "/api/status/3d660f1e-5ac5-4268-817e-04777f5287aa", "url": "http://127.0.0.1:5000/api/status/3d660f1e-5ac5-4268-817e-04777f5287aa", "hypothesisId": "H1"}, "timestamp": 1772576925.6649868}
+{"sessionId": "ede47f", "message": "response", "data": {"status": 200, "path": "/api/status/3d660f1e-5ac5-4268-817e-04777f5287aa", "hypothesisId": "H2"}, "timestamp": 1772576925.6653702}
+{"sessionId": "ede47f", "message": "request", "data": {"method": "GET", "path": "/api/status/3d660f1e-5ac5-4268-817e-04777f5287aa", "url": "http://127.0.0.1:5000/api/status/3d660f1e-5ac5-4268-817e-04777f5287aa", "hypothesisId": "H1"}, "timestamp": 1772576927.164885}
+{"sessionId": "ede47f", "message": "response", "data": {"status": 200, "path": "/api/status/3d660f1e-5ac5-4268-817e-04777f5287aa", "hypothesisId": "H2"}, "timestamp": 1772576927.165251}
+{"sessionId": "ede47f", "message": "request", "data": {"method": "GET", "path": "/api/status/3d660f1e-5ac5-4268-817e-04777f5287aa", "url": "http://127.0.0.1:5000/api/status/3d660f1e-5ac5-4268-817e-04777f5287aa", "hypothesisId": "H1"}, "timestamp": 1772576928.665032}
+{"sessionId": "ede47f", "message": "response", "data": {"status": 200, "path": "/api/status/3d660f1e-5ac5-4268-817e-04777f5287aa", "hypothesisId": "H2"}, "timestamp": 1772576928.665278}
+{"sessionId": "ede47f", "message": "request", "data": {"method": "GET", "path": "/api/status/3d660f1e-5ac5-4268-817e-04777f5287aa", "url": "http://127.0.0.1:5000/api/status/3d660f1e-5ac5-4268-817e-04777f5287aa", "hypothesisId": "H1"}, "timestamp": 1772576930.163871}
+{"sessionId": "ede47f", "message": "response", "data": {"status": 200, "path": "/api/status/3d660f1e-5ac5-4268-817e-04777f5287aa", "hypothesisId": "H2"}, "timestamp": 1772576930.164017}
+{"sessionId": "ede47f", "message": "request", "data": {"method": "GET", "path": "/api/status/3d660f1e-5ac5-4268-817e-04777f5287aa", "url": "http://127.0.0.1:5000/api/status/3d660f1e-5ac5-4268-817e-04777f5287aa", "hypothesisId": "H1"}, "timestamp": 1772576931.663798}
+{"sessionId": "ede47f", "message": "response", "data": {"status": 200, "path": "/api/status/3d660f1e-5ac5-4268-817e-04777f5287aa", "hypothesisId": "H2"}, "timestamp": 1772576931.66397}
+{"sessionId": "ede47f", "message": "request", "data": {"method": "GET", "path": "/api/status/3d660f1e-5ac5-4268-817e-04777f5287aa", "url": "http://127.0.0.1:5000/api/status/3d660f1e-5ac5-4268-817e-04777f5287aa", "hypothesisId": "H1"}, "timestamp": 1772576933.1653702}
+{"sessionId": "ede47f", "message": "response", "data": {"status": 200, "path": "/api/status/3d660f1e-5ac5-4268-817e-04777f5287aa", "hypothesisId": "H2"}, "timestamp": 1772576933.165518}
+{"sessionId": "ede47f", "message": "request", "data": {"method": "GET", "path": "/api/status/3d660f1e-5ac5-4268-817e-04777f5287aa", "url": "http://127.0.0.1:5000/api/status/3d660f1e-5ac5-4268-817e-04777f5287aa", "hypothesisId": "H1"}, "timestamp": 1772576934.662462}
+{"sessionId": "ede47f", "message": "response", "data": {"status": 200, "path": "/api/status/3d660f1e-5ac5-4268-817e-04777f5287aa", "hypothesisId": "H2"}, "timestamp": 1772576934.663546}
+{"sessionId": "ede47f", "message": "request", "data": {"method": "GET", "path": "/api/status/3d660f1e-5ac5-4268-817e-04777f5287aa", "url": "http://127.0.0.1:5000/api/status/3d660f1e-5ac5-4268-817e-04777f5287aa", "hypothesisId": "H1"}, "timestamp": 1772576936.1632671}
+{"sessionId": "ede47f", "message": "response", "data": {"status": 200, "path": "/api/status/3d660f1e-5ac5-4268-817e-04777f5287aa", "hypothesisId": "H2"}, "timestamp": 1772576936.163438}
+{"sessionId": "ede47f", "message": "request", "data": {"method": "GET", "path": "/api/status/3d660f1e-5ac5-4268-817e-04777f5287aa", "url": "http://127.0.0.1:5000/api/status/3d660f1e-5ac5-4268-817e-04777f5287aa", "hypothesisId": "H1"}, "timestamp": 1772576937.6618571}
+{"sessionId": "ede47f", "message": "response", "data": {"status": 200, "path": "/api/status/3d660f1e-5ac5-4268-817e-04777f5287aa", "hypothesisId": "H2"}, "timestamp": 1772576937.661984}
+{"sessionId": "ede47f", "message": "request", "data": {"method": "GET", "path": "/api/status/3d660f1e-5ac5-4268-817e-04777f5287aa", "url": "http://127.0.0.1:5000/api/status/3d660f1e-5ac5-4268-817e-04777f5287aa", "hypothesisId": "H1"}, "timestamp": 1772576939.163674}
+{"sessionId": "ede47f", "message": "response", "data": {"status": 200, "path": "/api/status/3d660f1e-5ac5-4268-817e-04777f5287aa", "hypothesisId": "H2"}, "timestamp": 1772576939.164181}
+{"sessionId": "ede47f", "message": "request", "data": {"method": "GET", "path": "/api/status/3d660f1e-5ac5-4268-817e-04777f5287aa", "url": "http://127.0.0.1:5000/api/status/3d660f1e-5ac5-4268-817e-04777f5287aa", "hypothesisId": "H1"}, "timestamp": 1772576940.662816}
+{"sessionId": "ede47f", "message": "response", "data": {"status": 200, "path": "/api/status/3d660f1e-5ac5-4268-817e-04777f5287aa", "hypothesisId": "H2"}, "timestamp": 1772576940.663187}
+{"sessionId": "ede47f", "message": "request", "data": {"method": "GET", "path": "/api/status/3d660f1e-5ac5-4268-817e-04777f5287aa", "url": "http://127.0.0.1:5000/api/status/3d660f1e-5ac5-4268-817e-04777f5287aa", "hypothesisId": "H1"}, "timestamp": 1772576942.164854}
+{"sessionId": "ede47f", "message": "response", "data": {"status": 200, "path": "/api/status/3d660f1e-5ac5-4268-817e-04777f5287aa", "hypothesisId": "H2"}, "timestamp": 1772576942.164995}
+{"sessionId": "ede47f", "message": "request", "data": {"method": "GET", "path": "/api/status/3d660f1e-5ac5-4268-817e-04777f5287aa", "url": "http://127.0.0.1:5000/api/status/3d660f1e-5ac5-4268-817e-04777f5287aa", "hypothesisId": "H1"}, "timestamp": 1772576943.666798}
+{"sessionId": "ede47f", "message": "response", "data": {"status": 200, "path": "/api/status/3d660f1e-5ac5-4268-817e-04777f5287aa", "hypothesisId": "H2"}, "timestamp": 1772576943.667371}
+{"sessionId": "ede47f", "message": "request", "data": {"method": "GET", "path": "/api/status/3d660f1e-5ac5-4268-817e-04777f5287aa", "url": "http://127.0.0.1:5000/api/status/3d660f1e-5ac5-4268-817e-04777f5287aa", "hypothesisId": "H1"}, "timestamp": 1772576945.1626391}
+{"sessionId": "ede47f", "message": "response", "data": {"status": 200, "path": "/api/status/3d660f1e-5ac5-4268-817e-04777f5287aa", "hypothesisId": "H2"}, "timestamp": 1772576945.16288}
+{"sessionId": "ede47f", "message": "request", "data": {"method": "GET", "path": "/api/status/3d660f1e-5ac5-4268-817e-04777f5287aa", "url": "http://127.0.0.1:5000/api/status/3d660f1e-5ac5-4268-817e-04777f5287aa", "hypothesisId": "H1"}, "timestamp": 1772576946.660377}
+{"sessionId": "ede47f", "message": "response", "data": {"status": 200, "path": "/api/status/3d660f1e-5ac5-4268-817e-04777f5287aa", "hypothesisId": "H2"}, "timestamp": 1772576946.660678}
+{"sessionId": "ede47f", "message": "request", "data": {"method": "GET", "path": "/api/status/3d660f1e-5ac5-4268-817e-04777f5287aa", "url": "http://127.0.0.1:5000/api/status/3d660f1e-5ac5-4268-817e-04777f5287aa", "hypothesisId": "H1"}, "timestamp": 1772576948.167243}
+{"sessionId": "ede47f", "message": "response", "data": {"status": 200, "path": "/api/status/3d660f1e-5ac5-4268-817e-04777f5287aa", "hypothesisId": "H2"}, "timestamp": 1772576948.167891}
+{"sessionId": "ede47f", "message": "request", "data": {"method": "GET", "path": "/api/status/3d660f1e-5ac5-4268-817e-04777f5287aa", "url": "http://127.0.0.1:5000/api/status/3d660f1e-5ac5-4268-817e-04777f5287aa", "hypothesisId": "H1"}, "timestamp": 1772576949.6669598}
+{"sessionId": "ede47f", "message": "response", "data": {"status": 200, "path": "/api/status/3d660f1e-5ac5-4268-817e-04777f5287aa", "hypothesisId": "H2"}, "timestamp": 1772576949.6677551}
+{"sessionId": "ede47f", "message": "request", "data": {"method": "GET", "path": "/api/status/3d660f1e-5ac5-4268-817e-04777f5287aa", "url": "http://127.0.0.1:5000/api/status/3d660f1e-5ac5-4268-817e-04777f5287aa", "hypothesisId": "H1"}, "timestamp": 1772576951.162178}
+{"sessionId": "ede47f", "message": "response", "data": {"status": 200, "path": "/api/status/3d660f1e-5ac5-4268-817e-04777f5287aa", "hypothesisId": "H2"}, "timestamp": 1772576951.1623292}
+{"sessionId": "ede47f", "message": "request", "data": {"method": "GET", "path": "/api/status/3d660f1e-5ac5-4268-817e-04777f5287aa", "url": "http://127.0.0.1:5000/api/status/3d660f1e-5ac5-4268-817e-04777f5287aa", "hypothesisId": "H1"}, "timestamp": 1772576952.66445}
+{"sessionId": "ede47f", "message": "response", "data": {"status": 200, "path": "/api/status/3d660f1e-5ac5-4268-817e-04777f5287aa", "hypothesisId": "H2"}, "timestamp": 1772576952.664962}
+{"sessionId": "ede47f", "message": "request", "data": {"method": "GET", "path": "/api/status/3d660f1e-5ac5-4268-817e-04777f5287aa", "url": "http://127.0.0.1:5000/api/status/3d660f1e-5ac5-4268-817e-04777f5287aa", "hypothesisId": "H1"}, "timestamp": 1772576954.163677}
+{"sessionId": "ede47f", "message": "response", "data": {"status": 200, "path": "/api/status/3d660f1e-5ac5-4268-817e-04777f5287aa", "hypothesisId": "H2"}, "timestamp": 1772576954.164245}
+{"sessionId": "ede47f", "message": "request", "data": {"method": "GET", "path": "/api/status/3d660f1e-5ac5-4268-817e-04777f5287aa", "url": "http://127.0.0.1:5000/api/status/3d660f1e-5ac5-4268-817e-04777f5287aa", "hypothesisId": "H1"}, "timestamp": 1772576955.66416}
+{"sessionId": "ede47f", "message": "response", "data": {"status": 200, "path": "/api/status/3d660f1e-5ac5-4268-817e-04777f5287aa", "hypothesisId": "H2"}, "timestamp": 1772576955.6643069}
+{"sessionId": "ede47f", "message": "request", "data": {"method": "GET", "path": "/api/status/3d660f1e-5ac5-4268-817e-04777f5287aa", "url": "http://127.0.0.1:5000/api/status/3d660f1e-5ac5-4268-817e-04777f5287aa", "hypothesisId": "H1"}, "timestamp": 1772576957.16227}
+{"sessionId": "ede47f", "message": "response", "data": {"status": 200, "path": "/api/status/3d660f1e-5ac5-4268-817e-04777f5287aa", "hypothesisId": "H2"}, "timestamp": 1772576957.162505}
+{"sessionId": "ede47f", "message": "request", "data": {"method": "GET", "path": "/api/status/3d660f1e-5ac5-4268-817e-04777f5287aa", "url": "http://127.0.0.1:5000/api/status/3d660f1e-5ac5-4268-817e-04777f5287aa", "hypothesisId": "H1"}, "timestamp": 1772576958.663738}
+{"sessionId": "ede47f", "message": "response", "data": {"status": 200, "path": "/api/status/3d660f1e-5ac5-4268-817e-04777f5287aa", "hypothesisId": "H2"}, "timestamp": 1772576958.6645088}
+{"sessionId": "ede47f", "message": "request", "data": {"method": "GET", "path": "/api/status/3d660f1e-5ac5-4268-817e-04777f5287aa", "url": "http://127.0.0.1:5000/api/status/3d660f1e-5ac5-4268-817e-04777f5287aa", "hypothesisId": "H1"}, "timestamp": 1772576960.16589}
+{"sessionId": "ede47f", "message": "response", "data": {"status": 200, "path": "/api/status/3d660f1e-5ac5-4268-817e-04777f5287aa", "hypothesisId": "H2"}, "timestamp": 1772576960.1661508}
+{"sessionId": "ede47f", "message": "request", "data": {"method": "GET", "path": "/api/status/3d660f1e-5ac5-4268-817e-04777f5287aa", "url": "http://127.0.0.1:5000/api/status/3d660f1e-5ac5-4268-817e-04777f5287aa", "hypothesisId": "H1"}, "timestamp": 1772576961.662747}
+{"sessionId": "ede47f", "message": "response", "data": {"status": 200, "path": "/api/status/3d660f1e-5ac5-4268-817e-04777f5287aa", "hypothesisId": "H2"}, "timestamp": 1772576961.663074}
+{"sessionId": "ede47f", "message": "request", "data": {"method": "GET", "path": "/api/status/3d660f1e-5ac5-4268-817e-04777f5287aa", "url": "http://127.0.0.1:5000/api/status/3d660f1e-5ac5-4268-817e-04777f5287aa", "hypothesisId": "H1"}, "timestamp": 1772576963.164143}
+{"sessionId": "ede47f", "message": "response", "data": {"status": 200, "path": "/api/status/3d660f1e-5ac5-4268-817e-04777f5287aa", "hypothesisId": "H2"}, "timestamp": 1772576963.164316}
+{"sessionId": "ede47f", "message": "request", "data": {"method": "GET", "path": "/api/status/3d660f1e-5ac5-4268-817e-04777f5287aa", "url": "http://127.0.0.1:5000/api/status/3d660f1e-5ac5-4268-817e-04777f5287aa", "hypothesisId": "H1"}, "timestamp": 1772576964.660361}
+{"sessionId": "ede47f", "message": "response", "data": {"status": 200, "path": "/api/status/3d660f1e-5ac5-4268-817e-04777f5287aa", "hypothesisId": "H2"}, "timestamp": 1772576964.66158}
+{"sessionId": "ede47f", "message": "request", "data": {"method": "GET", "path": "/api/status/3d660f1e-5ac5-4268-817e-04777f5287aa", "url": "http://127.0.0.1:5000/api/status/3d660f1e-5ac5-4268-817e-04777f5287aa", "hypothesisId": "H1"}, "timestamp": 1772576966.164568}
+{"sessionId": "ede47f", "message": "response", "data": {"status": 200, "path": "/api/status/3d660f1e-5ac5-4268-817e-04777f5287aa", "hypothesisId": "H2"}, "timestamp": 1772576966.1649458}
+{"sessionId": "ede47f", "message": "request", "data": {"method": "GET", "path": "/api/status/3d660f1e-5ac5-4268-817e-04777f5287aa", "url": "http://127.0.0.1:5000/api/status/3d660f1e-5ac5-4268-817e-04777f5287aa", "hypothesisId": "H1"}, "timestamp": 1772576967.666}
+{"sessionId": "ede47f", "message": "response", "data": {"status": 200, "path": "/api/status/3d660f1e-5ac5-4268-817e-04777f5287aa", "hypothesisId": "H2"}, "timestamp": 1772576967.6662369}
+{"sessionId": "ede47f", "message": "request", "data": {"method": "GET", "path": "/api/status/3d660f1e-5ac5-4268-817e-04777f5287aa", "url": "http://127.0.0.1:5000/api/status/3d660f1e-5ac5-4268-817e-04777f5287aa", "hypothesisId": "H1"}, "timestamp": 1772576969.1646059}
+{"sessionId": "ede47f", "message": "response", "data": {"status": 200, "path": "/api/status/3d660f1e-5ac5-4268-817e-04777f5287aa", "hypothesisId": "H2"}, "timestamp": 1772576969.16475}
+{"sessionId": "ede47f", "message": "request", "data": {"method": "GET", "path": "/api/status/3d660f1e-5ac5-4268-817e-04777f5287aa", "url": "http://127.0.0.1:5000/api/status/3d660f1e-5ac5-4268-817e-04777f5287aa", "hypothesisId": "H1"}, "timestamp": 1772576970.666919}
+{"sessionId": "ede47f", "message": "response", "data": {"status": 200, "path": "/api/status/3d660f1e-5ac5-4268-817e-04777f5287aa", "hypothesisId": "H2"}, "timestamp": 1772576970.667924}
+{"sessionId": "ede47f", "message": "request", "data": {"method": "GET", "path": "/", "url": "http://127.0.0.1:5000/", "hypothesisId": "H1"}, "timestamp": 1772576982.904778}
+{"sessionId": "ede47f", "message": "response", "data": {"status": 200, "path": "/", "hypothesisId": "H2"}, "timestamp": 1772576982.906}
+{"sessionId": "ede47f", "message": "request", "data": {"method": "GET", "path": "/api/check-key", "url": "http://127.0.0.1:5000/api/check-key", "hypothesisId": "H1"}, "timestamp": 1772576982.971358}
+{"sessionId": "ede47f", "message": "request", "data": {"method": "GET", "path": "/api/model", "url": "http://127.0.0.1:5000/api/model", "hypothesisId": "H1"}, "timestamp": 1772576982.9715142}
+{"sessionId": "ede47f", "message": "response", "data": {"status": 200, "path": "/api/model", "hypothesisId": "H2"}, "timestamp": 1772576982.971915}
+{"sessionId": "ede47f", "message": "response", "data": {"status": 200, "path": "/api/check-key", "hypothesisId": "H2"}, "timestamp": 1772576982.972221}
+{"sessionId": "ede47f", "message": "request", "data": {"method": "GET", "path": "/", "url": "http://127.0.0.1:5000/", "hypothesisId": "H1"}, "timestamp": 1772577047.222594}
+{"sessionId": "ede47f", "message": "response", "data": {"status": 200, "path": "/", "hypothesisId": "H2"}, "timestamp": 1772577047.2239318}
+{"sessionId": "ede47f", "message": "request", "data": {"method": "GET", "path": "/api/check-key", "url": "http://127.0.0.1:5000/api/check-key", "hypothesisId": "H1"}, "timestamp": 1772577047.292319}
+{"sessionId": "ede47f", "message": "request", "data": {"method": "GET", "path": "/api/model", "url": "http://127.0.0.1:5000/api/model", "hypothesisId": "H1"}, "timestamp": 1772577047.292348}
+{"sessionId": "ede47f", "message": "response", "data": {"status": 200, "path": "/api/model", "hypothesisId": "H2"}, "timestamp": 1772577047.29282}
+{"sessionId": "ede47f", "message": "response", "data": {"status": 200, "path": "/api/check-key", "hypothesisId": "H2"}, "timestamp": 1772577047.292877}
+{"sessionId": "ede47f", "message": "request", "data": {"method": "GET", "path": "/", "url": "http://127.0.0.1:5000/", "hypothesisId": "H1"}, "timestamp": 1772577084.551445}
+{"sessionId": "ede47f", "message": "response", "data": {"status": 304, "path": "/", "hypothesisId": "H2"}, "timestamp": 1772577084.557428}
+{"sessionId": "ede47f", "message": "request", "data": {"method": "GET", "path": "/api/check-key", "url": "http://127.0.0.1:5000/api/check-key", "hypothesisId": "H1"}, "timestamp": 1772577084.679212}
+{"sessionId": "ede47f", "message": "response", "data": {"status": 200, "path": "/api/check-key", "hypothesisId": "H2"}, "timestamp": 1772577084.680924}
+{"sessionId": "ede47f", "message": "request", "data": {"method": "GET", "path": "/api/model", "url": "http://127.0.0.1:5000/api/model", "hypothesisId": "H1"}, "timestamp": 1772577084.680983}
+{"sessionId": "ede47f", "message": "response", "data": {"status": 200, "path": "/api/model", "hypothesisId": "H2"}, "timestamp": 1772577084.681241}
+{"sessionId": "ede47f", "message": "request", "data": {"method": "GET", "path": "/", "url": "http://127.0.0.1:5000/", "hypothesisId": "H1"}, "timestamp": 1772577260.023245}
+{"sessionId": "ede47f", "message": "response", "data": {"status": 200, "path": "/", "hypothesisId": "H2"}, "timestamp": 1772577260.0250182}
+{"sessionId": "ede47f", "message": "request", "data": {"method": "GET", "path": "/api/check-key", "url": "http://127.0.0.1:5000/api/check-key", "hypothesisId": "H1"}, "timestamp": 1772577260.219695}
+{"sessionId": "ede47f", "message": "response", "data": {"status": 200, "path": "/api/check-key", "hypothesisId": "H2"}, "timestamp": 1772577260.262936}
+{"sessionId": "ede47f", "message": "request", "data": {"method": "GET", "path": "/api/model", "url": "http://127.0.0.1:5000/api/model", "hypothesisId": "H1"}, "timestamp": 1772577260.264979}
+{"sessionId": "ede47f", "message": "response", "data": {"status": 200, "path": "/api/model", "hypothesisId": "H2"}, "timestamp": 1772577260.266326}
+{"sessionId": "ede47f", "message": "request", "data": {"method": "GET", "path": "/", "url": "http://127.0.0.1:5000/", "hypothesisId": "H1"}, "timestamp": 1772577544.881585}
+{"sessionId": "ede47f", "message": "response", "data": {"status": 200, "path": "/", "hypothesisId": "H2"}, "timestamp": 1772577544.8844202}
+{"sessionId": "ede47f", "message": "request", "data": {"method": "GET", "path": "/api/check-key", "url": "http://127.0.0.1:5000/api/check-key", "hypothesisId": "H1"}, "timestamp": 1772577545.082856}
+{"sessionId": "ede47f", "message": "request", "data": {"method": "GET", "path": "/api/model", "url": "http://127.0.0.1:5000/api/model", "hypothesisId": "H1"}, "timestamp": 1772577545.083394}
+{"sessionId": "ede47f", "message": "response", "data": {"status": 200, "path": "/api/model", "hypothesisId": "H2"}, "timestamp": 1772577545.084345}
+{"sessionId": "ede47f", "message": "response", "data": {"status": 200, "path": "/api/check-key", "hypothesisId": "H2"}, "timestamp": 1772577545.093968}
+{"sessionId": "ede47f", "message": "request", "data": {"method": "GET", "path": "/", "url": "http://127.0.0.1:5000/", "hypothesisId": "H1"}, "timestamp": 1772577548.056256}
+{"sessionId": "ede47f", "message": "response", "data": {"status": 304, "path": "/", "hypothesisId": "H2"}, "timestamp": 1772577548.057575}
+{"sessionId": "ede47f", "message": "request", "data": {"method": "GET", "path": "/api/model", "url": "http://127.0.0.1:5000/api/model", "hypothesisId": "H1"}, "timestamp": 1772577548.1719701}
+{"sessionId": "ede47f", "message": "request", "data": {"method": "GET", "path": "/api/check-key", "url": "http://127.0.0.1:5000/api/check-key", "hypothesisId": "H1"}, "timestamp": 1772577548.172299}
+{"sessionId": "ede47f", "message": "response", "data": {"status": 200, "path": "/api/check-key", "hypothesisId": "H2"}, "timestamp": 1772577548.173335}
+{"sessionId": "ede47f", "message": "response", "data": {"status": 200, "path": "/api/model", "hypothesisId": "H2"}, "timestamp": 1772577548.184635}
+{"sessionId": "ede47f", "message": "request", "data": {"method": "GET", "path": "/", "url": "http://127.0.0.1:5000/", "hypothesisId": "H1"}, "timestamp": 1772577686.8560362}
+{"sessionId": "ede47f", "message": "response", "data": {"status": 200, "path": "/", "hypothesisId": "H2"}, "timestamp": 1772577686.857314}
+{"sessionId": "ede47f", "message": "request", "data": {"method": "GET", "path": "/api/check-key", "url": "http://127.0.0.1:5000/api/check-key", "hypothesisId": "H1"}, "timestamp": 1772577686.934788}
+{"sessionId": "ede47f", "message": "request", "data": {"method": "GET", "path": "/api/model", "url": "http://127.0.0.1:5000/api/model", "hypothesisId": "H1"}, "timestamp": 1772577686.934885}
+{"sessionId": "ede47f", "message": "response", "data": {"status": 200, "path": "/api/model", "hypothesisId": "H2"}, "timestamp": 1772577686.9353468}
+{"sessionId": "ede47f", "message": "response", "data": {"status": 200, "path": "/api/check-key", "hypothesisId": "H2"}, "timestamp": 1772577686.935731}
+{"sessionId": "ede47f", "message": "request", "data": {"method": "GET", "path": "/", "url": "http://127.0.0.1:5000/", "hypothesisId": "H1"}, "timestamp": 1772577852.279712}
+{"sessionId": "ede47f", "message": "response", "data": {"status": 200, "path": "/", "hypothesisId": "H2"}, "timestamp": 1772577852.281099}
+{"sessionId": "ede47f", "message": "request", "data": {"method": "GET", "path": "/api/check-key", "url": "http://127.0.0.1:5000/api/check-key", "hypothesisId": "H1"}, "timestamp": 1772577852.35285}
+{"sessionId": "ede47f", "message": "response", "data": {"status": 200, "path": "/api/check-key", "hypothesisId": "H2"}, "timestamp": 1772577852.3533142}
+{"sessionId": "ede47f", "message": "request", "data": {"method": "GET", "path": "/api/model", "url": "http://127.0.0.1:5000/api/model", "hypothesisId": "H1"}, "timestamp": 1772577852.3542132}
+{"sessionId": "ede47f", "message": "response", "data": {"status": 200, "path": "/api/model", "hypothesisId": "H2"}, "timestamp": 1772577852.354641}
+{"sessionId": "ede47f", "message": "request", "data": {"method": "GET", "path": "/", "url": "http://127.0.0.1:5000/", "hypothesisId": "H1"}, "timestamp": 1772577942.796829}
+{"sessionId": "ede47f", "message": "response", "data": {"status": 200, "path": "/", "hypothesisId": "H2"}, "timestamp": 1772577942.79796}
+{"sessionId": "ede47f", "message": "request", "data": {"method": "GET", "path": "/api/check-key", "url": "http://127.0.0.1:5000/api/check-key", "hypothesisId": "H1"}, "timestamp": 1772577942.864948}
+{"sessionId": "ede47f", "message": "request", "data": {"method": "GET", "path": "/api/model", "url": "http://127.0.0.1:5000/api/model", "hypothesisId": "H1"}, "timestamp": 1772577942.865748}
+{"sessionId": "ede47f", "message": "response", "data": {"status": 200, "path": "/api/check-key", "hypothesisId": "H2"}, "timestamp": 1772577942.866199}
+{"sessionId": "ede47f", "message": "response", "data": {"status": 200, "path": "/api/model", "hypothesisId": "H2"}, "timestamp": 1772577942.866477}
+{"sessionId": "ede47f", "message": "request", "data": {"method": "GET", "path": "/", "url": "http://127.0.0.1:5000/", "hypothesisId": "H1"}, "timestamp": 1772578003.527406}
+{"sessionId": "ede47f", "message": "response", "data": {"status": 200, "path": "/", "hypothesisId": "H2"}, "timestamp": 1772578003.5291}
+{"sessionId": "ede47f", "message": "request", "data": {"method": "GET", "path": "/api/check-key", "url": "http://127.0.0.1:5000/api/check-key", "hypothesisId": "H1"}, "timestamp": 1772578003.6073012}
+{"sessionId": "ede47f", "message": "request", "data": {"method": "GET", "path": "/api/model", "url": "http://127.0.0.1:5000/api/model", "hypothesisId": "H1"}, "timestamp": 1772578003.610782}
+{"sessionId": "ede47f", "message": "response", "data": {"status": 200, "path": "/api/check-key", "hypothesisId": "H2"}, "timestamp": 1772578003.61093}
+{"sessionId": "ede47f", "message": "response", "data": {"status": 200, "path": "/api/model", "hypothesisId": "H2"}, "timestamp": 1772578003.6114528}
+{"sessionId": "ede47f", "message": "request", "data": {"method": "POST", "path": "/api/extract-pdf", "url": "http://127.0.0.1:5000/api/extract-pdf", "hypothesisId": "H1"}, "timestamp": 1772578012.212734}
+{"sessionId": "ede47f", "message": "response", "data": {"status": 200, "path": "/api/extract-pdf", "hypothesisId": "H2"}, "timestamp": 1772578012.312414}
+{"sessionId": "ede47f", "message": "request", "data": {"method": "POST", "path": "/api/run", "url": "http://127.0.0.1:5000/api/run", "hypothesisId": "H1"}, "timestamp": 1772578020.234459}
+{"sessionId": "ede47f", "message": "response", "data": {"status": 200, "path": "/api/run", "hypothesisId": "H2"}, "timestamp": 1772578020.237447}
+{"sessionId": "ede47f", "message": "request", "data": {"method": "GET", "path": "/api/status/c373fbca-d87b-4c99-a537-3e58e99d9890", "url": "http://127.0.0.1:5000/api/status/c373fbca-d87b-4c99-a537-3e58e99d9890", "hypothesisId": "H1"}, "timestamp": 1772578021.749291}
+{"sessionId": "ede47f", "message": "response", "data": {"status": 500, "path": "/api/status/c373fbca-d87b-4c99-a537-3e58e99d9890", "hypothesisId": "H2"}, "timestamp": 1772578021.749946}

@@ -21,7 +21,7 @@ try:
 except ImportError:
     pass
 
-from src.pipeline import run
+from src.pipeline import run, PipelineAborted
 
 app = Flask(__name__, static_folder="static")
 jobs: dict = {}
@@ -108,6 +108,10 @@ def run_pipeline(
                 _log(prog, f"✓ Step {step_num} done in {elapsed_s:.1f}s ({_fmt_tokens(inp + out)} tokens, ${cost:.4f})")
                 _log(prog, "  Parsing response...")
 
+    def abort_check():
+        with jobs_lock:
+            return jobs.get(job_id, {}).get("status") != "running"
+
     try:
         if api_key:
             os.environ["ANTHROPIC_API_KEY"] = api_key
@@ -116,6 +120,7 @@ def run_pipeline(
             target_role=target_role,
             job_description=job_description,
             on_progress=on_progress,
+            abort_check=abort_check,
         )
         with jobs_lock:
             job = jobs.get(job_id)
@@ -132,6 +137,13 @@ def run_pipeline(
                 "result": result,
                 "log_lines": log_lines[-2:],
             }
+    except PipelineAborted:
+        with jobs_lock:
+            job = jobs.get(job_id)
+            prog = (job or {}).get("progress", {})
+            log_lines = list(prog.get("log", []))
+            log_lines.append("Aborted by user.")
+            jobs[job_id] = {"status": "aborted", "log_lines": log_lines}
     except Exception as e:
         with jobs_lock:
             jobs[job_id] = {"status": "error", "error": str(e)}
@@ -177,12 +189,28 @@ def api_run():
     return jsonify({"job_id": job_id})
 
 
+@app.route("/api/abort/<job_id>", methods=["POST"])
+def api_abort(job_id):
+    """Request abort of a running job. Takes effect at the next step boundary."""
+    with jobs_lock:
+        job = jobs.get(job_id)
+    if not job:
+        return jsonify({"error": "Job not found"}), 404
+    if job["status"] != "running":
+        return jsonify({"ok": True, "message": "Job already finished"})
+    with jobs_lock:
+        jobs[job_id]["status"] = "aborting"
+    return jsonify({"ok": True})
+
+
 @app.route("/api/status/<job_id>")
 def api_status(job_id):
     with jobs_lock:
         job = jobs.get(job_id)
     if not job:
         return jsonify({"error": "Job not found"}), 404
+    if job["status"] == "aborting":
+        return jsonify({"status": "running", "aborting": True})
     if job["status"] == "done":
         return jsonify({
             "status": "done",
@@ -193,6 +221,11 @@ def api_status(job_id):
         })
     if job["status"] == "error":
         return jsonify({"status": "error", "error": job["error"]}), 500
+    if job["status"] == "aborted":
+        return jsonify({
+            "status": "aborted",
+            "log_lines": job.get("log_lines", []),
+        })
     prog = job.get("progress", {})
     log_lines = prog.get("log", [])
     return jsonify({
