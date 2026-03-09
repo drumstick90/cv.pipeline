@@ -6,3 +6,6 @@ __pycache__/
 .venv/
 venv/
 .cursor/
+
+# Resume/CV files with personal data (phone, etc.)
+*LAURENZI*.md
