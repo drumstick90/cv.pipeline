@@ -91,9 +91,9 @@ def complete(
     prompt: str,
     system: Optional[str] = None,
     model: Optional[str] = None,
-) -> tuple[str, float, dict]:
+) -> tuple[str, float, dict, dict]:
     """
-    Send a prompt to Claude and return the text response, cost in USD, and usage.
+    Send a prompt to Claude and return the text response, cost in USD, usage, and payload.
 
     Args:
         prompt: The user message.
@@ -101,7 +101,8 @@ def complete(
         model: Model to use (default: queried from API, prefers haiku).
 
     Returns:
-        Tuple of (text response, cost_usd, usage dict with input_tokens, output_tokens).
+        Tuple of (text response, cost_usd, usage dict, payload dict).
+        payload has "request" (model, max_tokens, system, messages) and "response" (raw_text, usage, stop_reason).
 
     Raises:
         ValueError: If ANTHROPIC_API_KEY is not set.
@@ -133,7 +134,20 @@ def complete(
             # Extract text from content (may include thinking blocks before text)
             text_parts = [b.text for b in response.content if getattr(b, "text", None)]
             text = "".join(text_parts) if text_parts else ""
-            return text, cost, usage
+            payload = {
+                "request": {
+                    "model": kwargs["model"],
+                    "max_tokens": kwargs["max_tokens"],
+                    "system": kwargs.get("system"),
+                    "messages": kwargs["messages"],
+                },
+                "response": {
+                    "raw_text": text,
+                    "usage": dict(usage),
+                    "stop_reason": getattr(response, "stop_reason", None),
+                },
+            }
+            return text, cost, usage, payload
 
         except RateLimitError:
             if attempt < MAX_RETRIES - 1:

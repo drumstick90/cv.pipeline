@@ -34,6 +34,13 @@ def api_check_key():
     return jsonify({"has_key": has_key})
 
 
+@app.route("/api/prompts")
+def api_prompts():
+    """Return default prompts for editing. Structure: guardrails, step_1..step_7."""
+    from src.steps import PROMPTS
+    return jsonify(PROMPTS)
+
+
 @app.route("/api/model")
 def api_model():
     """Return the model that will be used for pipeline runs."""
@@ -78,6 +85,7 @@ def run_pipeline(
     target_role: str,
     job_description: str | None,
     api_key: str | None = None,
+    prompts: dict | None = None,
 ):
     def _log(prog: dict, line: str):
         prog.setdefault("log", []).append(line)
@@ -107,6 +115,9 @@ def run_pipeline(
                 cost = usage.get("cost_usd", 0)
                 _log(prog, f"✓ Step {step_num} done in {elapsed_s:.1f}s ({_fmt_tokens(inp + out)} tokens, ${cost:.4f})")
                 _log(prog, "  Parsing response...")
+                payload = usage.get("payload")
+                if payload is not None:
+                    prog.setdefault("step_payloads", {})[step_num] = payload
 
     def abort_check():
         with jobs_lock:
@@ -119,12 +130,14 @@ def run_pipeline(
             resume=resume,
             target_role=target_role,
             job_description=job_description,
+            prompts=prompts,
             on_progress=on_progress,
             abort_check=abort_check,
         )
         with jobs_lock:
             job = jobs.get(job_id)
-            log_lines = list((job.get("progress") or {}).get("log", []))
+            prog = job.get("progress") or {}
+            log_lines = list(prog.get("log", []))
             elapsed = result.get("total_elapsed_s", 0)
             inp = result.get("total_input_tokens", 0)
             out = result.get("total_output_tokens", 0)
@@ -136,6 +149,7 @@ def run_pipeline(
                 "status": "done",
                 "result": result,
                 "log_lines": log_lines[-2:],
+                "step_payloads": prog.get("step_payloads", {}),
             }
     except PipelineAborted:
         with jobs_lock:
@@ -168,6 +182,7 @@ def api_run():
     target_role = (data.get("target_role") or "").strip()
     job_description = (data.get("job_description") or "").strip() or None
     api_key = (data.get("api_key") or "").strip() or None
+    prompts = data.get("prompts")  # optional; if provided, use custom prompts
 
     if not resume or not target_role:
         return jsonify({"error": "Resume and target role are required"}), 400
@@ -181,7 +196,7 @@ def api_run():
 
     thread = threading.Thread(
         target=run_pipeline,
-        args=(job_id, resume, target_role, job_description, api_key),
+        args=(job_id, resume, target_role, job_description, api_key, prompts),
         daemon=True,
     )
     thread.start()
@@ -218,6 +233,7 @@ def api_status(job_id):
             "audit": job["result"]["audit"],
             "cost_usd": job["result"].get("cost_usd", 0),
             "log_lines": job.get("log_lines", []),
+            "step_payloads": job.get("step_payloads", {}),
         })
     if job["status"] == "error":
         return jsonify({"status": "error", "error": job["error"]}), 500
@@ -235,6 +251,7 @@ def api_status(job_id):
         "elapsed_ms": prog.get("elapsed_ms", 0),
         "completed_steps": prog.get("completed_steps", []),
         "log_lines": log_lines[-2:],  # last 2 lines for display
+        "step_payloads": prog.get("step_payloads", {}),
     })
 
 

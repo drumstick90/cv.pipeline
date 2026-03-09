@@ -28,6 +28,7 @@ def run(
     resume: str,
     target_role: str,
     job_description: Optional[str] = None,
+    prompts: Optional[dict] = None,
     on_progress: Optional[Callable[[int, str, str, float, dict], None]] = None,
     abort_check: Optional[Callable[[], bool]] = None,
 ) -> dict:
@@ -65,18 +66,18 @@ def run(
         start = time.perf_counter()
         if on_progress:
             on_progress(step_num, step_name, "start", 0.0, {"input_tokens": 0, "output_tokens": 0})
-        text, cost, usage = do_run()
+        text, cost, usage, payload = do_run()
         elapsed = time.perf_counter() - start
         total_cost += cost
         total_input_tokens += usage.get("input_tokens", 0)
         total_output_tokens += usage.get("output_tokens", 0)
         if on_progress:
-            usage_with_cost = {**usage, "cost_usd": cost}
+            usage_with_cost = {**usage, "cost_usd": cost, "payload": payload}
             on_progress(step_num, step_name, "end", elapsed, usage_with_cost)
         return text
 
     # Step 1: Brutal Recruiter Audit
-    audit = _step(1, STEP_NAMES[1], lambda: complete(steps.step_1_brutal_audit(resume, target_role)))
+    audit = _step(1, STEP_NAMES[1], lambda: complete(steps.step_1_brutal_audit(resume, target_role, prompts)))
     result["audit"] = audit
     result["steps"].append({"step": 1, "name": "audit", "output": audit})
 
@@ -85,8 +86,8 @@ def run(
         2,
         STEP_NAMES[2],
         lambda: complete(
-            steps.step_2_positioning_reset(resume, target_role, audit),
-            system=steps.STEP_2_SYSTEM,
+            steps.step_2_positioning_reset(resume, target_role, audit, prompts),
+            system=steps.get_system_prompt(2, prompts),
         ),
     )
     result["steps"].append({"step": 2, "name": "resume", "output": resume_v2})
@@ -97,8 +98,8 @@ def run(
         3,
         STEP_NAMES[3],
         lambda: complete(
-            steps.step_3_achievement_conversion(current_resume),
-            system=steps.STEP_3_SYSTEM,
+            steps.step_3_achievement_conversion(current_resume, prompts),
+            system=steps.get_system_prompt(3, prompts),
         ),
     )
     result["steps"].append({"step": 3, "name": "resume", "output": resume_v3})
@@ -112,8 +113,8 @@ def run(
             4,
             STEP_NAMES[4],
             lambda: complete(
-                steps.step_4_ats_alignment(current_resume, job_description),
-                system=steps.STEP_4_SYSTEM,
+                steps.step_4_ats_alignment(current_resume, job_description, prompts),
+                system=steps.get_system_prompt(4, prompts),
             ),
         )
         result["steps"].append({"step": 4, "name": "resume", "output": resume_v4})
@@ -127,8 +128,8 @@ def run(
         5,
         STEP_NAMES[5],
         lambda: complete(
-            steps.step_5_executive_tone(current_resume),
-            system=steps.STEP_5_SYSTEM,
+            steps.step_5_executive_tone(current_resume, prompts),
+            system=steps.get_system_prompt(5, prompts),
         ),
     )
     result["steps"].append({"step": 5, "name": "resume", "output": resume_v5})
@@ -139,8 +140,8 @@ def run(
         6,
         STEP_NAMES[6],
         lambda: complete(
-            steps.step_6_scan_optimization(current_resume),
-            system=steps.STEP_6_SYSTEM,
+            steps.step_6_scan_optimization(current_resume, prompts),
+            system=steps.get_system_prompt(6, prompts),
         ),
     )
     result["steps"].append({"step": 6, "name": "resume", "output": resume_v6})
@@ -151,8 +152,8 @@ def run(
         7,
         STEP_NAMES[7],
         lambda: complete(
-            steps.step_7_final_polish(current_resume),
-            system=steps.STEP_7_SYSTEM,
+            steps.step_7_final_polish(current_resume, prompts),
+            system=steps.get_system_prompt(7, prompts),
         ),
     )
     result["final_resume"] = final_resume

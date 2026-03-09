@@ -7,11 +7,11 @@
   <style>
     * { box-sizing: border-box; }
     body {
-      font-family: Verdana, Geneva, sans-serif;
-      font-size: 12px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+      font-size: 15px;
       line-height: 1.5;
-      background: #e8e8e8;
-      color: #333;
+      background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+      color: #334155;
       margin: 0;
       min-height: 100vh;
       padding: 24px;
@@ -20,58 +20,54 @@
       max-width: 640px;
       margin: 0 auto;
       background: #fff;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      padding: 24px;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-      text-align: center;
+      border-radius: 12px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+      padding: 32px;
+      border: 1px solid #e2e8f0;
     }
     h1 {
-      font-size: 18px;
-      font-weight: bold;
+      font-size: 24px;
+      font-weight: 600;
       margin: 0 0 8px 0;
-      color: #0066cc;
-      font-family: Verdana, Geneva, sans-serif;
+      color: #0f172a;
     }
     .subtitle {
-      color: #666;
-      margin: 0 0 8px 0;
-      font-size: 12px;
+      color: #64748b;
+      margin: 0 0 16px 0;
+      font-size: 14px;
     }
     .status {
-      color: #666;
-      font-size: 11px;
-      margin-bottom: 20px;
+      color: #64748b;
+      font-size: 13px;
+      margin-bottom: 24px;
     }
     hr {
       border: none;
-      border-top: 1px solid #ddd;
-      margin: 20px 0;
+      border-top: 1px solid #e2e8f0;
+      margin: 24px 0;
     }
     .section {
       margin-bottom: 20px;
-      text-align: center;
     }
     .label {
-      font-weight: bold;
+      font-weight: 600;
       margin-bottom: 6px;
       display: block;
-      color: #000;
+      color: #334155;
     }
     input, textarea {
-      font-family: Verdana, Geneva, sans-serif;
-      font-size: 12px;
-      border: 1px solid #999;
-      border-radius: 3px;
-      padding: 8px 10px;
+      font-family: inherit;
+      font-size: 15px;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      padding: 10px 12px;
       width: 100%;
-      background: #fff;
-      color: #333;
+      transition: border-color 0.15s, box-shadow 0.15s;
     }
     input:focus, textarea:focus {
       outline: none;
-      border-color: #0066cc;
-      box-shadow: 0 0 0 1px #0066cc;
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
     }
     textarea {
       min-height: 120px;
@@ -80,41 +76,37 @@
     .btn-row {
       display: flex;
       align-items: center;
-      justify-content: center;
       gap: 12px;
       flex-wrap: wrap;
     }
     .progress-steps {
       display: flex;
       flex-wrap: wrap;
-      justify-content: center;
       gap: 6px;
       margin-top: 12px;
       font-size: 12px;
-      color: #666;
+      color: #64748b;
     }
     .progress-steps span {
-      padding: 3px 8px;
-      border: 1px solid #ccc;
-      border-radius: 3px;
-      background: #f5f5f5;
+      padding: 2px 8px;
+      border-radius: 4px;
+      background: #f1f5f9;
     }
     .progress-steps span.done {
-      background: #e8f5e9;
-      color: #2e7d32;
+      background: #dcfce7;
+      color: #16a34a;
     }
     .progress-steps span.active {
-      background: #e3f2fd;
-      color: #0066cc;
-      border-color: #0066cc;
+      background: #dbeafe;
+      color: #2563eb;
+      font-weight: 500;
     }
     .cli-log {
-      font-family: "Courier New", Courier, monospace;
-      font-size: 11px;
-      background: #1e1e1e;
-      color: #00ff00;
-      border: 1px solid #555;
-      border-radius: 3px;
+      font-family: "SF Mono", "Consolas", "Monaco", monospace;
+      font-size: 12px;
+      background: #0f172a;
+      color: #e2e8f0;
+      border-radius: 6px;
       padding: 10px 12px;
       margin-top: 12px;
       min-height: 2.6em;
@@ -126,7 +118,7 @@
       display: inline-block;
       width: 8px;
       height: 1em;
-      background: #00ff00;
+      background: #3b82f6;
       margin-left: 2px;
       vertical-align: text-bottom;
       animation: blink 1s step-end infinite;
@@ -135,83 +127,62 @@
       50% { opacity: 0; }
     }
     input[type="submit"] {
-      background: #0066cc;
+      background: #3b82f6;
       color: #fff;
-      border: 1px solid #0055aa;
-      border-radius: 4px;
-      padding: 10px 20px;
+      border: none;
+      padding: 12px 24px;
       cursor: pointer;
-      font-weight: bold;
-      font-family: Verdana, Geneva, sans-serif;
-      font-size: 12px;
+      font-weight: 600;
+      border-radius: 8px;
       width: auto;
+      transition: background 0.15s, transform 0.1s;
     }
     input[type="submit"]:hover:not(:disabled) {
-      background: #0055aa;
+      background: #2563eb;
+    }
+    input[type="submit"]:active:not(:disabled) {
+      transform: scale(0.98);
     }
     input[type="submit"]:disabled {
       opacity: 0.7;
       cursor: not-allowed;
     }
-    .btn-abort {
-      background: #f5f5f5;
-      border: 1px solid #999;
-      border-radius: 4px;
-      color: #c62828;
-      padding: 10px 20px;
-      font-weight: bold;
-      cursor: pointer;
-      font-size: 12px;
-      font-family: Verdana, Geneva, sans-serif;
-    }
-    .btn-abort:hover {
-      background: #eee;
-    }
     .spinner {
       display: inline-block;
-      width: 14px;
-      height: 14px;
-      border: 2px solid #e0e0e0;
-      border-top-color: #0066cc;
+      width: 18px;
+      height: 18px;
+      border: 2px solid #e2e8f0;
+      border-top-color: #3b82f6;
       border-radius: 50%;
       animation: spin 0.8s linear infinite;
     }
     @keyframes spin {
       to { transform: rotate(360deg); }
     }
-    .status-msg { color: #666; font-size: 14px; }
-    .chrono {
-      font-family: Verdana, Geneva, sans-serif;
-      font-size: 12px;
-      font-weight: bold;
-      color: #0066cc;
-      margin-left: 8px;
-    }
-    .status-msg.error { color: #c62828; }
-    .status-msg.success { color: #2e7d32; }
+    .status-msg { color: #64748b; font-size: 14px; }
+    .status-msg.error { color: #dc2626; font-weight: 500; }
+    .status-msg.success { color: #16a34a; font-weight: 500; }
     .alert {
       padding: 12px 16px;
-      border: 1px solid #ccc;
+      border-radius: 8px;
       margin-bottom: 16px;
-      font-size: 14px;
     }
     .alert-error {
-      background: #ffebee;
-      border-color: #ef9a9a;
-      color: #c62828;
+      background: #fef2f2;
+      border: 1px solid #fecaca;
+      color: #dc2626;
     }
     .alert-success {
-      background: #e8f5e9;
-      border-color: #a5d6a7;
-      color: #2e7d32;
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      color: #16a34a;
     }
     pre {
-      font-family: "Courier New", Courier, monospace;
-      font-size: 11px;
-      background: #f8f8f8;
-      color: #333;
-      border: 1px solid #ddd;
-      border-radius: 3px;
+      font-family: "SF Mono", "Consolas", "Monaco", monospace;
+      font-size: 13px;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
       padding: 16px;
       white-space: pre-wrap;
       word-wrap: break-word;
@@ -226,73 +197,346 @@
     .output-header {
       display: flex;
       align-items: center;
-      justify-content: center;
+      justify-content: space-between;
       gap: 12px;
       margin-bottom: 8px;
     }
     .output-header .label { margin-bottom: 0; }
     .btn-copy {
-      background: #f5f5f5;
-      border: 1px solid #999;
-      border-radius: 4px;
-      color: #333;
-      padding: 8px 14px;
-      font-size: 12px;
+      background: #f1f5f9;
+      border: 1px solid #e2e8f0;
+      color: #475569;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 13px;
       cursor: pointer;
-      font-weight: bold;
-      font-family: Verdana, Geneva, sans-serif;
+      font-weight: 500;
+      transition: background 0.15s, color 0.15s;
     }
     .btn-copy:hover {
-      background: #eee;
+      background: #e2e8f0;
+      color: #334155;
     }
     .btn-copy.copied {
-      background: #e8f5e9;
-      border-color: #2e7d32;
-      color: #2e7d32;
+      background: #dcfce7;
+      color: #16a34a;
+      border-color: #bbf7d0;
     }
     .pdf-upload-row {
       display: flex;
       align-items: center;
-      justify-content: center;
       gap: 12px;
       margin-bottom: 8px;
     }
     .btn-pdf {
-      background: #f5f5f5;
-      border: 1px solid #999;
-      border-radius: 4px;
-      color: #333;
+      background: #f1f5f9;
+      border: 1px solid #e2e8f0;
+      color: #475569;
       padding: 8px 14px;
-      font-size: 12px;
+      border-radius: 6px;
+      font-size: 14px;
       cursor: pointer;
-      font-weight: bold;
-      font-family: Verdana, Geneva, sans-serif;
+      font-weight: 500;
+      transition: background 0.15s, color 0.15s;
     }
     .btn-pdf:hover {
-      background: #eee;
+      background: #e2e8f0;
+      color: #334155;
     }
     .pdf-status {
       font-size: 13px;
-      color: #666;
+      color: #64748b;
     }
-    .pdf-status.error { color: #c62828; }
-    .pdf-status.success { color: #2e7d32; }
+    .pdf-status.error { color: #dc2626; }
+    .pdf-status.success { color: #16a34a; }
     #output { margin-top: 8px; }
     .cost-display {
-      color: #333;
-      font-weight: bold;
-      font-size: 12px;
+      color: #3b82f6;
+      font-weight: 600;
       margin-bottom: 16px;
     }
-    a { color: #0066cc; text-decoration: underline; }
-    a:visited { color: #551a8b; }
+    a { color: #3b82f6; }
+    .payload-inspector {
+      margin-top: 24px;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .payload-inspector-header {
+      padding: 10px 14px;
+      background: #f8fafc;
+      font-weight: 600;
+      font-size: 13px;
+      cursor: pointer;
+      user-select: none;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .payload-inspector-header:hover { background: #f1f5f9; }
+    .payload-inspector-body { padding: 12px; }
+    .payload-step {
+      margin-bottom: 16px;
+      border: 1px solid #e2e8f0;
+      border-radius: 6px;
+      overflow: hidden;
+    }
+    .payload-step:last-child { margin-bottom: 0; }
+    .payload-step-header {
+      padding: 8px 12px;
+      background: #f1f5f9;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+    }
+    .payload-step-header:hover { background: #e2e8f0; }
+    .payload-step-body { padding: 12px; }
+    .payload-block {
+      margin-bottom: 12px;
+      font-size: 12px;
+    }
+    .payload-block:last-child { margin-bottom: 0; }
+    .payload-block-title {
+      font-weight: 600;
+      margin-bottom: 4px;
+      color: #475569;
+    }
+    .payload-json, .payload-text {
+      font-family: "SF Mono", "Consolas", "Monaco", monospace;
+      font-size: 12px;
+      background: #0f172a;
+      color: #e2e8f0;
+      border-radius: 4px;
+      padding: 12px;
+      white-space: pre-wrap;
+      word-break: break-all;
+      min-height: 120px;
+      max-height: 400px;
+      overflow-y: auto;
+    }
+    .payload-text { min-height: 160px; max-height: 500px; }
+    .payload-block-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 4px;
+    }
+    .btn-copy-sm {
+      padding: 4px 8px;
+      font-size: 11px;
+      background: #334155;
+      color: #e2e8f0;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .btn-copy-sm:hover { background: #475569; }
+    .advanced-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+    .btn-advanced {
+      background: #f1f5f9;
+      border: 1px solid #e2e8f0;
+      color: #475569;
+      padding: 8px 14px;
+      border-radius: 6px;
+      font-size: 13px;
+      cursor: pointer;
+      font-weight: 500;
+    }
+    .btn-advanced:hover {
+      background: #e2e8f0;
+      color: #334155;
+    }
+    .btn-advanced.btn-disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+    .btn-advanced.btn-disabled:hover {
+      background: #f1f5f9;
+      color: #475569;
+    }
+    .advanced-hint {
+      font-size: 12px;
+      color: #94a3b8;
+    }
+    .prompts-panel {
+      margin-top: 16px;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      overflow: hidden;
+      background: #fafafa;
+    }
+    .prompts-panel-header {
+      padding: 10px 14px;
+      font-weight: 600;
+      font-size: 13px;
+      cursor: pointer;
+      user-select: none;
+      background: #f1f5f9;
+    }
+    .prompts-panel-header:hover { background: #e2e8f0; }
+    .prompts-panel-body { padding: 16px; }
+    .prompts-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 16px;
+    }
+    .prompts-tab {
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 12px;
+      cursor: pointer;
+      background: #e2e8f0;
+      color: #475569;
+      border: none;
+    }
+    .prompts-tab:hover { background: #cbd5e1; }
+    .prompts-tab.active { background: #3b82f6; color: #fff; }
+    .prompts-editor .label { font-size: 13px; margin-bottom: 4px; }
+    .prompts-editor textarea {
+      min-height: 200px;
+      font-size: 13px;
+      font-family: "SF Mono", "Consolas", "Monaco", monospace;
+    }
+    .prompts-editor .field { margin-bottom: 12px; }
+    .prompts-editor .field:last-child { margin-bottom: 0; }
+    .btn-reset {
+      margin-top: 12px;
+      padding: 6px 12px;
+      font-size: 12px;
+      background: #fef2f2;
+      border: 1px solid #fecaca;
+      color: #dc2626;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .btn-reset:hover { background: #fee2e2; }
+    .sidebar {
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: 400px;
+      max-width: 90vw;
+      height: 100vh;
+      background: #fff;
+      border-right: 1px solid #e2e8f0;
+      box-shadow: 4px 0 24px rgba(0,0,0,0.08);
+      z-index: 1000;
+      display: flex;
+      flex-direction: column;
+      transform: translateX(-100%);
+      transition: transform 0.25s ease;
+      overflow: hidden;
+    }
+    .sidebar.open { transform: translateX(0); }
+    .sidebar-header {
+      padding: 16px;
+      border-bottom: 1px solid #e2e8f0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-shrink: 0;
+    }
+    .sidebar-header h2 { margin: 0; font-size: 16px; font-weight: 600; }
+    .sidebar-close {
+      background: none;
+      border: none;
+      font-size: 20px;
+      cursor: pointer;
+      color: #64748b;
+      padding: 4px;
+      line-height: 1;
+    }
+    .sidebar-close:hover { color: #334155; }
+    .sidebar-tabs {
+      display: flex;
+      border-bottom: 1px solid #e2e8f0;
+      flex-shrink: 0;
+    }
+    .sidebar-tab {
+      flex: 1;
+      padding: 12px;
+      border: none;
+      background: #f8fafc;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      color: #64748b;
+    }
+    .sidebar-tab:hover { color: #334155; background: #f1f5f9; }
+    .sidebar-tab.active { background: #fff; color: #3b82f6; border-bottom: 2px solid #3b82f6; margin-bottom: -1px; }
+    .sidebar-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 16px;
+    }
+    .sidebar-pane { display: none; }
+    .sidebar-pane.active { display: block; }
+    .btn-open-sidebar {
+      position: fixed;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 32px;
+      height: 64px;
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      border-left: none;
+      border-radius: 0 8px 8px 0;
+      cursor: pointer;
+      font-size: 14px;
+      color: #64748b;
+      z-index: 999;
+      box-shadow: 2px 0 8px rgba(0,0,0,0.06);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .btn-open-sidebar:hover { background: #f8fafc; color: #3b82f6; }
+    .btn-open-sidebar.hidden { display: none; }
+    .main-content {
+      transition: margin-left 0.25s ease;
+      min-height: 100vh;
+    }
+    .sidebar.open ~ .main-content {
+      margin-left: 400px;
+    }
   </style>
 </head>
 <body>
+  <button type="button" class="btn-open-sidebar" id="btn_open_sidebar" title="Apri pannello">☰</button>
+  <div class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <h2>Pannello</h2>
+      <button type="button" class="sidebar-close" id="sidebar_close">×</button>
+    </div>
+    <div class="sidebar-tabs">
+      <button type="button" class="sidebar-tab active" data-pane="prompts">Prompts</button>
+      <button type="button" class="sidebar-tab" data-pane="payloads">Payloads</button>
+    </div>
+    <div class="sidebar-body">
+      <div class="sidebar-pane active" id="pane_prompts">
+        <div class="prompts-tabs" id="prompts_tabs"></div>
+        <div class="prompts-editor" id="prompts_editor"></div>
+        <button type="button" class="btn-reset" id="btn_reset_prompts">Reset to defaults</button>
+      </div>
+      <div class="sidebar-pane" id="pane_payloads">
+        <div id="payload_body"></div>
+      </div>
+    </div>
+  </div>
+  <div class="main-content">
   <div class="card">
     <h1>CV Pipeline</h1>
     <p class="subtitle">7-step resume improvement via Claude. Paste your resume below.</p>
-    <p class="status">Typical cost: ~$2 per run (Sonnet). Actual cost shown after completion. Model: <span id="model_info">—</span></p>
+    <p class="status">Typical cost: ~$0.15–0.45 per run (Sonnet). Actual cost shown after completion. Model: <span id="model_info">—</span></p>
     <hr>
     <div id="alert" class="alert" style="display:none;"></div>
     <form id="form">
@@ -318,11 +562,12 @@
         <textarea name="job_description" id="job_description"></textarea>
       </div>
       <div class="section">
+        <button type="button" class="btn-advanced" id="btn_edit_prompts">Edit prompts</button>
+      </div>
+      <div class="section">
         <div class="btn-row">
           <input type="submit" id="submit_btn" value="Run Pipeline">
-          <button type="button" class="btn-abort" id="abort_btn" style="display:none;">Stop</button>
           <span id="status" class="status-msg"></span>
-          <span id="chrono" class="chrono" style="display:none;"></span>
         </div>
         <div id="progress_steps" class="progress-steps" style="display:none;"></div>
         <div id="cli_log" class="cli-log" style="display:none;">
@@ -332,10 +577,14 @@
       </div>
     </form>
     <hr>
+    <div id="advanced_row" class="advanced-row" style="display:none;">
+      <button type="button" class="btn-advanced" id="btn_payloads">View payloads</button>
+      <span class="advanced-hint">(request/response per step)</span>
+    </div>
     <div id="output" style="display:none;">
       <div class="output-header" style="margin-bottom:16px;">
         <span id="cost_display" class="cost-display"></span>
-        <button type="button" class="btn-copy" id="copy_btn">Copy</button>
+        <button type="button" class="btn-copy" id="copy_btn">Copy to clipboard</button>
       </div>
       <div class="output-section">
         <div class="label">Audit</div>
@@ -346,6 +595,7 @@
         <pre id="final_resume"></pre>
       </div>
     </div>
+  </div>
   </div>
   <script>
     const form = document.getElementById('form');
@@ -363,13 +613,107 @@
     const cliLogEl = document.getElementById('cli_log');
     const cliLine1 = document.getElementById('cli_line1');
     const cliLine2 = document.getElementById('cli_line2');
-    const chronoEl = document.getElementById('chrono');
-    const abortBtn = document.getElementById('abort_btn');
-    let currentJobId = null;
 
     const STEP_NAMES = [
       'Audit', 'Positioning', 'Achievements', 'ATS', 'Tone', 'Scan', 'Polish'
     ];
+
+    function renderPayloadInspector(stepPayloads) {
+      const container = document.getElementById('payload_body');
+      const advancedRow = document.getElementById('advanced_row');
+      if (!stepPayloads || Object.keys(stepPayloads).length === 0) {
+        if (advancedRow) advancedRow.style.display = 'none';
+        return;
+      }
+      if (advancedRow) advancedRow.style.display = 'flex';
+      const steps = Object.keys(stepPayloads).map(Number).sort((a, b) => a - b);
+      container.innerHTML = steps.map(stepNum => {
+        const p = stepPayloads[stepNum];
+        const name = STEP_NAMES[stepNum - 1] || `Step ${stepNum}`;
+        const req = p.request || {};
+        const res = p.response || {};
+        const reqJson = JSON.stringify({
+          model: req.model,
+          max_tokens: req.max_tokens,
+          system: req.system || null,
+          messages: req.messages
+        }, null, 2);
+        const resText = res.raw_text || '';
+        const resMeta = res.usage ? `Tokens: in=${res.usage.input_tokens} out=${res.usage.output_tokens}` : '';
+        const id = 'payload-step-' + stepNum;
+        return `
+          <div class="payload-step">
+            <div class="payload-step-header" onclick="var b=this.nextElementSibling; b.style.display=b.style.display==='none'?'block':'none'">
+              Step ${stepNum}: ${name}
+            </div>
+            <div class="payload-step-body" style="display:none">
+              <div class="payload-block">
+                <div class="payload-block-row">
+                  <span class="payload-block-title">Request</span>
+                  <button type="button" class="btn-copy-sm" data-copy="${id}-req">Copy</button>
+                </div>
+                <pre class="payload-json" id="${id}-req">${escapeHtml(reqJson)}</pre>
+              </div>
+              <div class="payload-block">
+                <div class="payload-block-row">
+                  <span class="payload-block-title">Response ${resMeta ? '(' + resMeta + ')' : ''}</span>
+                  <button type="button" class="btn-copy-sm" data-copy="${id}-res">Copy</button>
+                </div>
+                <pre class="payload-text" id="${id}-res">${escapeHtml(resText)}</pre>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+      container.querySelectorAll('[data-copy]').forEach(btn => {
+        btn.onclick = () => {
+          const id = btn.getAttribute('data-copy');
+          const el = document.getElementById(id);
+          if (el) {
+            navigator.clipboard.writeText(el.textContent);
+            btn.textContent = 'Copied!';
+            setTimeout(() => { btn.textContent = 'Copy'; }, 1500);
+          }
+        };
+      });
+    }
+
+    function openSidebar(pane) {
+      const sidebar = document.getElementById('sidebar');
+      sidebar.classList.add('open');
+      document.getElementById('btn_open_sidebar').classList.add('hidden');
+      if (pane) {
+        document.querySelectorAll('.sidebar-tab').forEach(t => t.classList.remove('active'));
+        const tab = document.querySelector('.sidebar-tab[data-pane="' + pane + '"]');
+        if (tab) tab.classList.add('active');
+        document.querySelectorAll('.sidebar-pane').forEach(p => p.classList.remove('active'));
+        const paneEl = document.getElementById('pane_' + pane);
+        if (paneEl) paneEl.classList.add('active');
+      }
+    }
+    function closeSidebar() {
+      document.getElementById('sidebar').classList.remove('open');
+      document.getElementById('btn_open_sidebar').classList.remove('hidden');
+    }
+
+    document.getElementById('btn_open_sidebar').addEventListener('click', () => openSidebar());
+    document.getElementById('sidebar_close').addEventListener('click', closeSidebar);
+    document.querySelectorAll('.sidebar-tab').forEach(t => {
+      t.addEventListener('click', () => {
+        document.querySelectorAll('.sidebar-tab').forEach(x => x.classList.remove('active'));
+        t.classList.add('active');
+        const pane = t.dataset.pane;
+        document.querySelectorAll('.sidebar-pane').forEach(p => p.classList.remove('active'));
+        document.getElementById('pane_' + pane).classList.add('active');
+      });
+    });
+
+    document.getElementById('btn_payloads').addEventListener('click', () => openSidebar('payloads'));
+    function escapeHtml(s) {
+      const div = document.createElement('div');
+      div.textContent = s;
+      return div.innerHTML;
+    }
 
     function renderCliLog(lines, blinking) {
       const arr = Array.isArray(lines) ? lines : [];
@@ -382,12 +726,6 @@
         cursor.className = 'cli-cursor';
         cliLine2.appendChild(cursor);
       }
-    }
-
-    function fmtTime(sec) {
-      const m = Math.floor(sec / 60);
-      const s = Math.floor(sec % 60);
-      return m + ':' + (s < 10 ? '0' : '') + s;
     }
 
     function renderProgress(completed, current) {
@@ -443,13 +781,6 @@
     const pdfStatus = document.getElementById('pdf_status');
     const resumeEl = document.getElementById('resume');
 
-    abortBtn.addEventListener('click', async () => {
-      if (!currentJobId) return;
-      try {
-        await fetch('/api/abort/' + currentJobId, { method: 'POST' });
-      } catch (_) {}
-    });
-
     pdfBtn.addEventListener('click', () => pdfInput.click());
     pdfInput.addEventListener('change', async (e) => {
       const file = e.target.files?.[0];
@@ -477,6 +808,81 @@
       }
     });
 
+    let promptsState = null;
+
+    async function loadPrompts() {
+      const res = await fetch('/api/prompts');
+      promptsState = await res.json();
+      return promptsState;
+    }
+
+    function renderPromptsEditor() {
+      const tabsEl = document.getElementById('prompts_tabs');
+      const editorEl = document.getElementById('prompts_editor');
+      if (!promptsState) return;
+      const tabs = [
+        { id: 'guardrails', label: 'Guardrails' },
+        ...STEP_NAMES.map((name, i) => ({ id: 'step_' + (i + 1), label: (i + 1) + '. ' + name }))
+      ];
+      let activeTab = tabs[0].id;
+      tabsEl.innerHTML = tabs.map(t => `<button type="button" class="prompts-tab ${t.id === activeTab ? 'active' : ''}" data-tab="${t.id}">${t.label}</button>`).join('');
+      function showTab(id) {
+        activeTab = id;
+        tabsEl.querySelectorAll('.prompts-tab').forEach(b => {
+          b.classList.toggle('active', b.dataset.tab === id);
+        });
+        if (id === 'guardrails') {
+          const g = promptsState.guardrails || {};
+          editorEl.innerHTML = `
+            <div class="field">
+              <div class="label">No hallucination</div>
+              <textarea id="prompt_no_hallucination" data-key="guardrails.no_hallucination">${escapeHtml(g.no_hallucination || '')}</textarea>
+            </div>
+            <div class="field">
+              <div class="label">No sycophancy</div>
+              <textarea id="prompt_no_sycophancy" data-key="guardrails.no_sycophancy">${escapeHtml(g.no_sycophancy || '')}</textarea>
+            </div>
+          `;
+        } else {
+          const stepNum = id.replace('step_', '');
+          const step = promptsState['step_' + stepNum] || {};
+          editorEl.innerHTML = `
+            <div class="field">
+              <div class="label">User prompt</div>
+              <textarea id="prompt_user" data-key="step_${stepNum}.user">${escapeHtml(step.user || '')}</textarea>
+            </div>
+            <div class="field">
+              <div class="label">System prompt</div>
+              <textarea id="prompt_system" data-key="step_${stepNum}.system">${escapeHtml(step.system || '')}</textarea>
+            </div>
+          `;
+        }
+        editorEl.querySelectorAll('textarea').forEach(ta => {
+          ta.addEventListener('input', () => {
+            const key = ta.dataset.key;
+            const [a, b] = key.split('.');
+            if (!promptsState[a]) promptsState[a] = {};
+            promptsState[a][b] = ta.value;
+          });
+        });
+      }
+      showTab(activeTab);
+      tabsEl.querySelectorAll('.prompts-tab').forEach(b => {
+        b.addEventListener('click', () => showTab(b.dataset.tab));
+      });
+    }
+
+    document.getElementById('btn_edit_prompts').addEventListener('click', async () => {
+      if (!promptsState) await loadPrompts();
+      renderPromptsEditor();
+      openSidebar('prompts');
+    });
+
+    document.getElementById('btn_reset_prompts').addEventListener('click', async () => {
+      await loadPrompts();
+      renderPromptsEditor();
+    });
+
     fetch('/api/check-key').then(r => r.json()).then(data => {
       if (!data.has_key) apikeySection.style.display = 'block';
     });
@@ -484,6 +890,7 @@
       const el = document.getElementById('model_info');
       if (el && data.model) el.textContent = data.model;
     }).catch(() => {});
+    loadPrompts().catch(() => {});
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
@@ -491,9 +898,9 @@
       setStatus('Starting...');
       setLoading(true);
       output.style.display = 'none';
+      document.getElementById('advanced_row').style.display = 'none';
       progressStepsEl.style.display = 'none';
       cliLogEl.style.display = 'none';
-      chronoEl.style.display = 'none';
 
       const body = {
         resume: document.getElementById('resume').value,
@@ -502,6 +909,9 @@
       };
       if (apikeySection.style.display !== 'none' && apikeyInput.value) {
         body.api_key = apikeyInput.value;
+      }
+      if (promptsState) {
+        body.prompts = promptsState;
       }
 
       const res = await fetch('/api/run', {
@@ -519,15 +929,7 @@
       }
 
       const { job_id } = await res.json();
-      currentJobId = job_id;
-      abortBtn.style.display = 'inline-block';
       setStatus('Step 1/7: Brutal Recruiter Audit...');
-      chronoEl.style.display = 'inline';
-      const startMs = Date.now();
-      const chronoInterval = setInterval(() => {
-        chronoEl.textContent = fmtTime((Date.now() - startMs) / 1000);
-      }, 1000);
-      chronoEl.textContent = '0:00';
 
       const poll = setInterval(async () => {
         const s = await fetch('/api/status/' + job_id);
@@ -538,37 +940,24 @@
           const name = data.step_name || '';
           const completed = data.completed_steps || [];
           const logLines = data.log_lines || [];
-          setStatus(data.aborting ? 'Stopping...' : (step ? `Step ${step}/7: ${name}...` : 'Starting...'));
+          setStatus(step ? `Step ${step}/7: ${name}...` : 'Starting...');
           renderProgress(completed, step);
           renderCliLog(logLines, true);
+          if (data.step_payloads) renderPayloadInspector(data.step_payloads);
           return;
         }
 
         clearInterval(poll);
-        clearInterval(chronoInterval);
         setLoading(false);
-        abortBtn.style.display = 'none';
-        currentJobId = null;
         progressStepsEl.style.display = 'none';
-
-        if (data.status === 'aborted') {
-          setStatus('Stopped', 'error');
-          renderCliLog(data.log_lines || [], false);
-          cliLogEl.style.display = 'block';
-          chronoEl.style.display = 'none';
-          return;
-        }
 
         if (data.status === 'error') {
           setStatus('Error: ' + data.error, 'error');
           showAlert(data.error, 'error');
           cliLogEl.style.display = 'none';
-          chronoEl.style.display = 'none';
           return;
         }
 
-        const elapsedSec = (Date.now() - startMs) / 1000;
-        chronoEl.textContent = 'Done in ' + fmtTime(elapsedSec);
         setStatus('Done ✓', 'success');
         showAlert('Resume improved successfully.', 'success');
         renderCliLog(data.log_lines || [], false);
@@ -576,6 +965,7 @@
         auditEl.textContent = data.audit || '';
         finalEl.textContent = data.final_resume || '';
         output.style.display = 'block';
+        if (data.step_payloads) renderPayloadInspector(data.step_payloads);
       }, 1500);
     });
   </script>
