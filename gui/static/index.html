@@ -511,8 +511,8 @@
   </style>
 </head>
 <body>
-  <button type="button" class="btn-open-sidebar" id="btn_open_sidebar" title="Apri pannello">☰</button>
-  <div class="sidebar" id="sidebar">
+  <button type="button" class="btn-open-sidebar hidden" id="btn_open_sidebar" title="Apri pannello">☰</button>
+  <div class="sidebar open" id="sidebar">
     <div class="sidebar-header">
       <h2>Pannello</h2>
       <button type="button" class="sidebar-close" id="sidebar_close">×</button>
@@ -890,7 +890,7 @@
       const el = document.getElementById('model_info');
       if (el && data.model) el.textContent = data.model;
     }).catch(() => {});
-    loadPrompts().catch(() => {});
+    loadPrompts().then(renderPromptsEditor).catch(() => {});
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
