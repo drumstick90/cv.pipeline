@@ -28,6 +28,7 @@ def run(
     resume: str,
     target_role: str,
     job_description: Optional[str] = None,
+    api_key: Optional[str] = None,
     prompts: Optional[dict] = None,
     on_progress: Optional[Callable[[int, str, str, float, dict], None]] = None,
     abort_check: Optional[Callable[[], bool]] = None,
@@ -40,6 +41,7 @@ def run(
         resume: The resume text.
         target_role: Target job role.
         job_description: Optional job description for ATS alignment (step 4).
+        api_key: Optional API key to use only for this pipeline run.
 
     Returns:
         Dict with keys: audit, final_resume, steps (list of step outputs for logging).
@@ -77,7 +79,11 @@ def run(
         return text
 
     # Step 1: Brutal Recruiter Audit
-    audit = _step(1, STEP_NAMES[1], lambda: complete(steps.step_1_brutal_audit(resume, target_role, prompts)))
+    audit = _step(
+        1,
+        STEP_NAMES[1],
+        lambda: complete(steps.step_1_brutal_audit(resume, target_role, prompts), api_key=api_key),
+    )
     result["audit"] = audit
     result["steps"].append({"step": 1, "name": "audit", "output": audit})
 
@@ -88,6 +94,7 @@ def run(
         lambda: complete(
             steps.step_2_positioning_reset(resume, target_role, audit, prompts),
             system=steps.get_system_prompt(2, prompts),
+            api_key=api_key,
         ),
     )
     result["steps"].append({"step": 2, "name": "resume", "output": resume_v2})
@@ -100,6 +107,7 @@ def run(
         lambda: complete(
             steps.step_3_achievement_conversion(current_resume, prompts),
             system=steps.get_system_prompt(3, prompts),
+            api_key=api_key,
         ),
     )
     result["steps"].append({"step": 3, "name": "resume", "output": resume_v3})
@@ -115,6 +123,7 @@ def run(
             lambda: complete(
                 steps.step_4_ats_alignment(current_resume, job_description, prompts),
                 system=steps.get_system_prompt(4, prompts),
+                api_key=api_key,
             ),
         )
         result["steps"].append({"step": 4, "name": "resume", "output": resume_v4})
@@ -130,6 +139,7 @@ def run(
         lambda: complete(
             steps.step_5_executive_tone(current_resume, prompts),
             system=steps.get_system_prompt(5, prompts),
+            api_key=api_key,
         ),
     )
     result["steps"].append({"step": 5, "name": "resume", "output": resume_v5})
@@ -142,6 +152,7 @@ def run(
         lambda: complete(
             steps.step_6_scan_optimization(current_resume, prompts),
             system=steps.get_system_prompt(6, prompts),
+            api_key=api_key,
         ),
     )
     result["steps"].append({"step": 6, "name": "resume", "output": resume_v6})
@@ -154,6 +165,7 @@ def run(
         lambda: complete(
             steps.step_7_final_polish(current_resume, prompts),
             system=steps.get_system_prompt(7, prompts),
+            api_key=api_key,
         ),
     )
     result["final_resume"] = final_resume

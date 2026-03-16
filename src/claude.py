@@ -37,8 +37,8 @@ def _cost_from_usage(usage, model: str) -> float:
     return (input_tokens / 1e6) * inp + (output_tokens / 1e6) * out
 
 
-def _get_client() -> Anthropic:
-    api_key = os.environ.get("ANTHROPIC_API_KEY")
+def _get_client(api_key: Optional[str] = None) -> Anthropic:
+    api_key = api_key or os.environ.get("ANTHROPIC_API_KEY")
     if not api_key:
         raise ValueError(
             "ANTHROPIC_API_KEY is not set. Set it in your environment or .env file."
@@ -46,7 +46,7 @@ def _get_client() -> Anthropic:
     return Anthropic(api_key=api_key)
 
 
-def get_available_model(prefer: str = "sonnet") -> str:
+def get_available_model(prefer: str = "sonnet", api_key: Optional[str] = None) -> str:
     """
     Query Anthropic API for available models and return the best match.
     prefer: "haiku" (fast), "sonnet" (default), or "opus" (strongest).
@@ -60,7 +60,7 @@ def get_available_model(prefer: str = "sonnet") -> str:
     env_model = (os.environ.get("ANTHROPIC_MODEL") or "").strip()
     if env_model:
         try:
-            client = _get_client()
+            client = _get_client(api_key=api_key)
             page = client.models.list(limit=100)
             ids = [m.id for m in page.data]
             if env_model in ids:
@@ -71,7 +71,7 @@ def get_available_model(prefer: str = "sonnet") -> str:
         return env_model  # Use env value even if not in list (e.g. new model)
 
     try:
-        client = _get_client()
+        client = _get_client(api_key=api_key)
         page = client.models.list(limit=100)
         ids = [m.id for m in page.data]
         prefer_lower = prefer.lower()
@@ -91,6 +91,7 @@ def complete(
     prompt: str,
     system: Optional[str] = None,
     model: Optional[str] = None,
+    api_key: Optional[str] = None,
 ) -> tuple[str, float, dict, dict]:
     """
     Send a prompt to Claude and return the text response, cost in USD, usage, and payload.
@@ -99,6 +100,7 @@ def complete(
         prompt: The user message.
         system: Optional system prompt.
         model: Model to use (default: queried from API, prefers haiku).
+        api_key: Optional API key for this request only.
 
     Returns:
         Tuple of (text response, cost_usd, usage dict, payload dict).
@@ -108,8 +110,8 @@ def complete(
         ValueError: If ANTHROPIC_API_KEY is not set.
         APIStatusError: On API errors after retries.
     """
-    client = _get_client()
-    model = model or get_available_model(prefer="sonnet")
+    client = _get_client(api_key=api_key)
+    model = model or get_available_model(prefer="sonnet", api_key=api_key)
 
     for attempt in range(MAX_RETRIES):
         try:

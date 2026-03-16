@@ -2,6 +2,7 @@
 """Minimal 00s-style web GUI for CV pipeline."""
 
 import os
+import re
 import sys
 import threading
 import uuid
@@ -26,6 +27,43 @@ from src.pipeline import run, PipelineAborted
 app = Flask(__name__, static_folder="static")
 jobs: dict = {}
 jobs_lock = threading.Lock()
+_SENSITIVE_KEYS = {
+    "api_key",
+    "apikey",
+    "authorization",
+    "x-api-key",
+    "anthropic_api_key",
+}
+_SECRET_PATTERNS = [
+    re.compile(r"sk-ant-[A-Za-z0-9\-_]+"),
+    re.compile(r"(?i)(bearer\s+)([A-Za-z0-9._\-]+)"),
+]
+
+
+def _redact_text(value: str) -> str:
+    redacted = value
+    for pattern in _SECRET_PATTERNS:
+        redacted = pattern.sub(r"\1[REDACTED]" if pattern.groups >= 1 else "[REDACTED]", redacted)
+    return redacted
+
+
+def _redact_sensitive(value):
+    if isinstance(value, dict):
+        redacted: dict = {}
+        for key, item in value.items():
+            key_name = key.lower() if isinstance(key, str) else str(key).lower()
+            if key_name in _SENSITIVE_KEYS:
+                redacted[key] = "[REDACTED]"
+            else:
+                redacted[key] = _redact_sensitive(item)
+        return redacted
+    if isinstance(value, list):
+        return [_redact_sensitive(item) for item in value]
+    if isinstance(value, tuple):
+        return tuple(_redact_sensitive(item) for item in value)
+    if isinstance(value, str):
+        return _redact_text(value)
+    return value
 
 @app.route("/api/check-key")
 def api_check_key():
@@ -88,7 +126,7 @@ def run_pipeline(
     prompts: dict | None = None,
 ):
     def _log(prog: dict, line: str):
-        prog.setdefault("log", []).append(line)
+        prog.setdefault("log", []).append(_redact_text(line))
 
     def on_progress(step_num: int, step_name: str, phase: str, elapsed_s: float, usage: dict):
         with jobs_lock:
@@ -117,19 +155,18 @@ def run_pipeline(
                 _log(prog, "  Parsing response...")
                 payload = usage.get("payload")
                 if payload is not None:
-                    prog.setdefault("step_payloads", {})[step_num] = payload
+                    prog.setdefault("step_payloads", {})[step_num] = _redact_sensitive(payload)
 
     def abort_check():
         with jobs_lock:
             return jobs.get(job_id, {}).get("status") != "running"
 
     try:
-        if api_key:
-            os.environ["ANTHROPIC_API_KEY"] = api_key
         result = run(
             resume=resume,
             target_role=target_role,
             job_description=job_description,
+            api_key=api_key,
             prompts=prompts,
             on_progress=on_progress,
             abort_check=abort_check,
@@ -148,8 +185,8 @@ def run_pipeline(
             jobs[job_id] = {
                 "status": "done",
                 "result": result,
-                "log_lines": log_lines[-2:],
-                "step_payloads": prog.get("step_payloads", {}),
+                "log_lines": _redact_sensitive(log_lines[-2:]),
+                "step_payloads": _redact_sensitive(prog.get("step_payloads", {})),
             }
     except PipelineAborted:
         with jobs_lock:
@@ -157,10 +194,10 @@ def run_pipeline(
             prog = (job or {}).get("progress", {})
             log_lines = list(prog.get("log", []))
             log_lines.append("Aborted by user.")
-            jobs[job_id] = {"status": "aborted", "log_lines": log_lines}
+            jobs[job_id] = {"status": "aborted", "log_lines": _redact_sensitive(log_lines)}
     except Exception as e:
         with jobs_lock:
-            jobs[job_id] = {"status": "error", "error": str(e)}
+            jobs[job_id] = {"status": "error", "error": _redact_text(str(e))}
 
 
 @app.route("/")
@@ -182,6 +219,7 @@ def api_run():
     target_role = (data.get("target_role") or "").strip()
     job_description = (data.get("job_description") or "").strip() or None
     api_key = (data.get("api_key") or "").strip() or None
+    data.pop("api_key", None)
     prompts = data.get("prompts")  # optional; if provided, use custom prompts
 
     if not resume or not target_role:
@@ -232,15 +270,15 @@ def api_status(job_id):
             "final_resume": job["result"]["final_resume"],
             "audit": job["result"]["audit"],
             "cost_usd": job["result"].get("cost_usd", 0),
-            "log_lines": job.get("log_lines", []),
-            "step_payloads": job.get("step_payloads", {}),
+            "log_lines": _redact_sensitive(job.get("log_lines", [])),
+            "step_payloads": _redact_sensitive(job.get("step_payloads", {})),
         })
     if job["status"] == "error":
-        return jsonify({"status": "error", "error": job["error"]}), 500
+        return jsonify({"status": "error", "error": _redact_text(job["error"])}), 500
     if job["status"] == "aborted":
         return jsonify({
             "status": "aborted",
-            "log_lines": job.get("log_lines", []),
+            "log_lines": _redact_sensitive(job.get("log_lines", [])),
         })
     prog = job.get("progress", {})
     log_lines = prog.get("log", [])
@@ -250,8 +288,8 @@ def api_status(job_id):
         "step_name": prog.get("step_name", ""),
         "elapsed_ms": prog.get("elapsed_ms", 0),
         "completed_steps": prog.get("completed_steps", []),
-        "log_lines": log_lines[-2:],  # last 2 lines for display
-        "step_payloads": prog.get("step_payloads", {}),
+        "log_lines": _redact_sensitive(log_lines[-2:]),  # last 2 lines for display
+        "step_payloads": _redact_sensitive(prog.get("step_payloads", {})),
     })
 
 

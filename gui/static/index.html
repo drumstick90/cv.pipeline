@@ -913,7 +913,6 @@
       if (promptsState) {
         body.prompts = promptsState;
       }
-
       const res = await fetch('/api/run', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
